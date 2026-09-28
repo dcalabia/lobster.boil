@@ -1,0 +1,3033 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lobster Seafood House — Service Prep</title>
+<style>
+:root {
+  /* Parchment theme (food, quizzes) */
+  --bg: #ede5d8;
+  --card-bg: #f5ecd7;
+  --ink: #2a1f14;
+  --ink-soft: #6b5d46;
+  --acc: #7a5c20;
+  --acc-light: #b59254;
+  --line: #d4c4a0;
+
+  /* Lobster dark theme (drinks, catering) */
+  --lob-bg: #150b0c;
+  --lob-card: #26141a;
+  --lob-acc: #8b1a1a;
+  --lob-acc-s: #e05555;
+  --lob-line: #3a2028;
+
+  --serif: Georgia, 'Times New Roman', serif;
+  --sans: system-ui, -apple-system, sans-serif;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+body { font-family: var(--sans); background: var(--bg); color: var(--ink); min-height: 100vh; overflow-x: hidden; }
+
+/* SCREENS */
+.screen { display: none; min-height: 100vh; padding-bottom: 80px; }
+
+/* HOME */
+#home { background: var(--bg); padding: 52px 24px 90px; max-width: 600px; margin: 0 auto; }
+.home-restaurant {
+  text-align: center; font-size: 11px; letter-spacing: 0.22em;
+  color: var(--ink-soft); margin-bottom: 14px; text-transform: uppercase;
+}
+.home-title {
+  font-family: var(--serif); font-size: 54px; font-weight: 400;
+  text-align: center; line-height: 1.05; color: var(--ink);
+}
+.home-title em { font-style: italic; }
+.home-div { width: 36px; height: 2px; background: var(--acc); margin: 18px auto; }
+.home-sub { text-align: center; font-size: 14px; color: var(--ink-soft); margin-bottom: 40px; }
+.section-label {
+  font-size: 10px; letter-spacing: 0.2em; color: var(--ink-soft);
+  text-transform: uppercase; margin-bottom: 14px; padding: 0 2px;
+}
+.card-list { display: flex; flex-direction: column; gap: 12px; margin-bottom: 32px; }
+.h-card {
+  background: var(--card-bg); border-radius: 14px;
+  padding: 18px 18px 18px 14px; display: flex; align-items: center; gap: 14px;
+  cursor: pointer; border-left: 4px solid var(--acc);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+  transition: transform 0.12s, box-shadow 0.12s;
+}
+.h-card:active { transform: scale(0.98); box-shadow: 0 1px 6px rgba(0,0,0,0.07); }
+.h-card.lobster-card { border-left-color: var(--lob-acc); }
+.h-card.food-q { border-left-color: #4a6e2a; }
+.h-card.drink-q { border-left-color: #2a4a7a; }
+.h-card.cater-q { border-left-color: #7a4a2a; }
+.h-icon { font-size: 26px; width: 38px; text-align: center; flex-shrink: 0; }
+.h-body { flex: 1; min-width: 0; }
+.h-top { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 5px; }
+.h-name { font-weight: 600; font-size: 16px; }
+.h-count { font-size: 11px; color: var(--ink-soft); letter-spacing: 0.06em; text-transform: uppercase; }
+.h-desc { font-size: 13px; color: var(--ink-soft); line-height: 1.45; margin-bottom: 9px; }
+.h-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+.h-tag {
+  font-size: 10px; letter-spacing: 0.07em; text-transform: uppercase;
+  border: 1px solid var(--line); border-radius: 20px;
+  padding: 2px 9px; color: var(--ink-soft);
+}
+.h-arrow { color: var(--line); font-size: 20px; flex-shrink: 0; }
+
+/* DECK SCREENS */
+.deck-wrap { max-width: 600px; margin: 0 auto; padding: 24px 20px 100px; }
+.deck-screen { background: var(--bg); }
+.deck-screen.lobster-theme { background: var(--lob-bg); }
+
+.back-btn {
+  background: none; border: none; cursor: pointer;
+  font-size: 13px; color: var(--ink-soft);
+  padding: 0 0 20px; display: flex; align-items: center; gap: 6px;
+  letter-spacing: 0.04em;
+}
+.lobster-theme .back-btn { color: #8a6058; }
+
+.deck-eyebrow {
+  font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--ink-soft); margin-bottom: 6px;
+}
+.lobster-theme .deck-eyebrow { color: #8a6058; }
+.deck-title { font-family: var(--serif); font-size: 34px; font-weight: 400; }
+.lobster-theme .deck-title { color: #f0dcd8; }
+.deck-divider { width: 32px; height: 2px; background: var(--acc); margin-top: 12px; margin-bottom: 20px; }
+.lobster-theme .deck-divider { background: var(--lob-acc-s); }
+
+/* Filter pills */
+.cat-row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; }
+.cat-btn {
+  background: none; border: 1.5px solid var(--line);
+  border-radius: 24px; padding: 6px 16px;
+  font-size: 12px; font-weight: 500; letter-spacing: 0.04em;
+  color: var(--ink-soft); cursor: pointer; transition: all 0.15s;
+}
+.cat-btn.active { background: var(--ink); border-color: var(--ink); color: #f5ecd7; }
+.lobster-theme .cat-btn { border-color: var(--lob-line); color: #8a6058; }
+.lobster-theme .cat-btn.active { background: var(--lob-acc); border-color: var(--lob-acc); color: #f5ecd7; }
+
+.progress { font-size: 13px; color: var(--ink-soft); text-align: center; margin-bottom: 16px; }
+.lobster-theme .progress { color: #8a6058; }
+
+/* CARD FLIP */
+.card-wrap { perspective: 1600px; cursor: pointer; margin-bottom: 20px; }
+.card-inner {
+  position: relative; transform-style: preserve-3d;
+  transition: transform 0.5s cubic-bezier(0.4,0,0.2,1);
+  border-radius: 16px; min-height: 300px; height: auto;
+}
+.card-inner.flipped { transform: rotateY(180deg); }
+.card-face {
+  border-radius: 16px; padding: 28px 26px;
+  backface-visibility: hidden; -webkit-backface-visibility: hidden;
+  min-height: 300px;
+}
+.card-front {
+  background: var(--card-bg);
+  box-shadow: 0 4px 24px rgba(0,0,0,0.1);
+  display: flex; flex-direction: column;
+}
+.lobster-theme .card-front {
+  background: var(--lob-card);
+  box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+  color: #f0dcd8;
+}
+.card-back {
+  background: #2a1f14; color: #f0e8d8;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.2);
+  position: absolute; top: 0; left: 0; right: 0;
+  transform: rotateY(180deg);
+  display: flex; flex-direction: column;
+}
+.lobster-theme .card-back { background: var(--lob-card); }
+
+/* Front face */
+.front-cat { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--acc); margin-bottom: 10px; }
+.lobster-theme .card-front .front-cat { color: var(--lob-acc-s); }
+.front-name { font-family: var(--serif); font-size: 30px; font-weight: 400; flex: 1; display: flex; align-items: center; margin: 8px 0 16px; }
+.front-price { font-size: 26px; font-weight: 600; color: var(--acc); margin-bottom: 10px; }
+.lobster-theme .card-front .front-price { color: var(--lob-acc-s); }
+.tap-hint { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--line); margin-top: auto; }
+.lobster-theme .card-front .tap-hint { color: var(--lob-line); }
+
+/* Back face shared */
+.section-tag {
+  display: inline-block; font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase;
+  color: rgba(255,255,255,0.45);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 4px; padding: 2px 7px; margin-bottom: 8px;
+}
+.back-name { font-family: var(--serif); font-size: 22px; font-weight: 400; margin-bottom: 18px; }
+.back-divider { height: 1px; background: rgba(255,255,255,0.1); margin: 16px 0; }
+
+/* Menu back */
+.pitch-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 4px; }
+.pitch-item { display: flex; align-items: baseline; gap: 12px; }
+.pitch-num { font-size: 10px; color: rgba(255,255,255,0.35); min-width: 16px; }
+.pitch-word { font-size: 18px; font-family: var(--serif); font-weight: 400; }
+.info-block {
+  background: rgba(255,255,255,0.06);
+  border-radius: 8px; padding: 12px 14px; margin-bottom: 10px;
+}
+.info-label { font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: 6px; }
+.info-text { font-size: 13px; line-height: 1.55; color: rgba(255,255,255,0.85); }
+.info-text.italic { font-style: italic; }
+.note-line { font-size: 12px; color: rgba(255,255,255,0.45); font-style: italic; margin-top: 12px; }
+.choice-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
+.choice-chip {
+  font-size: 11px; padding: 3px 9px; border-radius: 20px;
+  background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.85);
+  border: 1px solid rgba(255,255,255,0.12);
+}
+.halal-chip {
+  display: inline-block; font-size: 10px; font-weight: 600;
+  padding: 2px 8px; border-radius: 20px; margin-left: 8px;
+  background: rgba(39,174,96,0.2); color: #70e090;
+  vertical-align: middle; letter-spacing: 0.05em;
+}
+
+/* Quiz back */
+.quiz-q { font-family: var(--serif); font-size: 22px; font-weight: 400; flex: 1; display: flex; align-items: center; line-height: 1.4; margin: 8px 0 16px; }
+.quiz-context { font-size: 12px; color: var(--ink-soft); margin-top: 4px; }
+.lobster-theme .card-front .quiz-context { color: #6a4848; }
+.quiz-a { font-family: var(--serif); font-size: 30px; font-weight: 400; flex: 1; display: flex; align-items: center; justify-content: center; text-align: center; line-height: 1.35; }
+.quiz-context-back { font-size: 12px; color: rgba(255,255,255,0.45); text-align: center; margin-top: 8px; }
+
+/* Navigation */
+.nav-row { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+.deck-controls { position: relative; padding: 16px 0 24px; background: none; z-index: 10; max-width: 600px; margin: 0 auto; }
+.nav-btn {
+  background: var(--card-bg); border: 1.5px solid var(--line);
+  border-radius: 50px; padding: 11px 22px;
+  font-size: 14px; font-weight: 500; color: var(--ink);
+  cursor: pointer; transition: all 0.15s;
+}
+.nav-btn:active { transform: scale(0.96); }
+.nav-btn.primary { flex: 1; background: var(--ink); color: #f5ecd7; border-color: var(--ink); font-size: 15px; }
+.lobster-theme .nav-btn { background: var(--lob-card); border-color: var(--lob-line); color: #c0a0a0; }
+.lobster-theme .nav-btn.primary { background: var(--lob-acc); border-color: var(--lob-acc); color: #f5ecd7; }
+
+.extra-row { display: flex; justify-content: center; gap: 24px; }
+.extra-btn {
+  background: none; border: none; cursor: pointer;
+  font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--ink-soft); display: flex; align-items: center; gap: 6px;
+  padding: 6px 0;
+}
+.lobster-theme .extra-btn { color: #6a4848; }
+
+/* Spaced repetition */
+.sr-row { display: flex; gap: 8px; margin-top: 10px; }
+.sr-btn {
+  flex: 1; border: none; border-radius: 50px;
+  padding: 11px 6px; font-size: 13px; font-weight: 600;
+  cursor: pointer; transition: all 0.15s; letter-spacing: 0.02em;
+  display: none;
+}
+.sr-btn:active { transform: scale(0.96); }
+.sr-btn.sr-wrong  { background: #c0392b; color: #fff; }
+.sr-btn.sr-unsure { background: #e67e22; color: #fff; }
+.sr-btn.sr-right  { background: #27ae60; color: #fff; }
+.lobster-theme .sr-btn.sr-wrong  { background: #8b1a1a; }
+.lobster-theme .sr-btn.sr-unsure { background: #7a4a10; }
+.lobster-theme .sr-btn.sr-right  { background: #1a5c30; }
+
+.sr-badge { display: inline-block; font-size: 11px; padding: 2px 8px; border-radius: 20px; font-weight: 600; margin-left: 8px; vertical-align: middle; }
+.sr-badge.wrong  { background: rgba(192,57,43,0.18); color: #c0392b; }
+.sr-badge.unsure { background: rgba(230,126,34,0.18); color: #e67e22; }
+.sr-badge.right  { background: rgba(39,174,96,0.18); color: #27ae60; }
+.lobster-theme .sr-badge.wrong  { background: rgba(192,57,43,0.25); color: #e07070; }
+.lobster-theme .sr-badge.unsure { background: rgba(230,126,34,0.25); color: #e8a060; }
+.lobster-theme .sr-badge.right  { background: rgba(39,174,96,0.25); color: #70e090; }
+
+.sr-progress-bar-wrap { height: 4px; background: rgba(0,0,0,0.08); border-radius: 4px; margin-bottom: 14px; overflow: hidden; }
+.lobster-theme .sr-progress-bar-wrap { background: rgba(255,255,255,0.08); }
+.sr-progress-bar { height: 100%; background: #27ae60; border-radius: 4px; transition: width 0.4s ease; }
+.sr-stats { text-align: center; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 10px; }
+.lobster-theme .sr-stats { color: #6a4848; }
+
+/* Bottom nav */
+.bottom-nav {
+  position: fixed; bottom: 0; left: 0; right: 0;
+  background: var(--card-bg); border-top: 1px solid var(--line);
+  display: flex; z-index: 100;
+  padding-bottom: env(safe-area-inset-bottom, 0);
+}
+.nav-item {
+  flex: 1; display: flex; flex-direction: column;
+  align-items: center; gap: 3px; padding: 10px 4px 8px;
+  cursor: pointer; font-size: 10px; color: var(--ink-soft);
+  letter-spacing: 0.07em; text-transform: uppercase;
+  background: none; border: none; transition: color 0.15s;
+}
+.nav-item svg { stroke: var(--ink-soft); transition: stroke 0.15s; }
+.nav-item.active { color: var(--acc); }
+.nav-item.active svg { stroke: var(--acc); }
+</style>
+</head>
+
+<body>
+
+<!-- ═══════ HOME ═══════ -->
+<div id="home" class="screen" style="display:block;">
+  <div style="max-width:600px;margin:0 auto;padding:52px 24px 90px;">
+    <div class="home-restaurant">Lobster Seafood House</div>
+    <h1 class="home-title">Service<br><em>Prep</em></h1>
+    <div class="home-div"></div>
+    <p class="home-sub">Your complete shift study guide</p>
+    <p class="home-sub" style="margin-top:-30px;">Made by Dale Calabia</p>
+
+    <div class="section-label">Reference — Full Detail</div>
+    <div class="card-list">
+      <div class="h-card" onclick="showScreen('menu-screen')">
+        <div class="h-icon">🦞</div>
+        <div class="h-body">
+          <div class="h-top"><div class="h-name">Menu Cards</div><div class="h-count" id="count-menu">0 dishes</div></div>
+          <div class="h-desc">Ingredients, sauce choices, sides, pitch trios and service notes.</div>
+          <div class="h-tags"><span class="h-tag">Most Popular</span><span class="h-tag">Starters</span><span class="h-tag">Boil Buckets</span></div>
+        </div>
+        <div class="h-arrow">›</div>
+      </div>
+      <div class="h-card lobster-card" onclick="showScreen('drinks-screen')">
+        <div class="h-icon">🥤</div>
+        <div class="h-body">
+          <div class="h-top"><div class="h-name">Drinks Cards</div><div class="h-count" id="count-drinks">0 drinks</div></div>
+          <div class="h-desc">Mocktails, sodas, juices, teas, coffee and non-alcoholic beer.</div>
+          <div class="h-tags"><span class="h-tag">Mocktails</span><span class="h-tag">Cold</span><span class="h-tag">Hot</span></div>
+        </div>
+        <div class="h-arrow">›</div>
+      </div>
+      <div class="h-card lobster-card" onclick="showScreen('catering-screen')">
+        <div class="h-icon">🍽</div>
+        <div class="h-body">
+          <div class="h-top"><div class="h-name">Catering Cards</div><div class="h-count" id="count-catering">0 trays</div></div>
+          <div class="h-desc">Trays and packages — feeds how many, what's included, prices.</div>
+          <div class="h-tags"><span class="h-tag">Slider Trays</span><span class="h-tag">Packages</span><span class="h-tag">Party Trays</span></div>
+        </div>
+        <div class="h-arrow">›</div>
+      </div>
+    </div>
+
+    <div class="section-label">Quick Quiz — One Question, One Answer</div>
+    <div class="card-list">
+      <div class="h-card food-q" onclick="showScreen('foodq-screen')">
+        <div class="h-icon">🧠</div>
+        <div class="h-body">
+          <div class="h-top"><div class="h-name">Food Quiz</div><div class="h-count" id="count-foodq">0 cards</div></div>
+          <div class="h-desc">Sauces, sides, ingredients, pitch trios, halal, service standards.</div>
+          <div class="h-tags"><span class="h-tag">Sauces</span><span class="h-tag">Ingredients</span><span class="h-tag">Details</span></div>
+        </div>
+        <div class="h-arrow">›</div>
+      </div>
+      <div class="h-card drink-q" onclick="showScreen('drinksq-screen')">
+        <div class="h-icon">🥥</div>
+        <div class="h-body">
+          <div class="h-top"><div class="h-name">Drinks Quiz</div><div class="h-count" id="count-drinksq">0 cards</div></div>
+          <div class="h-desc">What's in each mocktail, prices, what's non-alcoholic, what pairs with seafood.</div>
+          <div class="h-tags"><span class="h-tag">Mocktails</span><span class="h-tag">Prices</span><span class="h-tag">Pairings</span></div>
+        </div>
+        <div class="h-arrow">›</div>
+      </div>
+      <div class="h-card cater-q" onclick="showScreen('cateringq-screen')">
+        <div class="h-icon">📦</div>
+        <div class="h-body">
+          <div class="h-top"><div class="h-name">Catering Quiz</div><div class="h-count" id="count-cateringq">0 cards</div></div>
+          <div class="h-desc">Feeds how many, what's in each tray, prices, package values.</div>
+          <div class="h-tags"><span class="h-tag">Feeds</span><span class="h-tag">Contents</span><span class="h-tag">Pricing</span></div>
+        </div>
+        <div class="h-arrow">›</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════ MENU SCREEN ═══════ -->
+<div id="menu-screen" class="screen deck-screen">
+  <div class="deck-wrap">
+    <button class="back-btn" onclick="showScreen('home')">← Back</button>
+    <div class="deck-eyebrow">Reference</div>
+    <div class="deck-title">Menu Cards</div>
+    <div class="deck-divider"></div>
+    <div class="cat-row" id="menu-cats"></div>
+    <div class="progress" id="menu-prog"></div>
+    <div class="sr-stats" id="menu-sr-stats"></div>
+    <div class="sr-progress-bar-wrap"><div class="sr-progress-bar" id="menu-sr-bar" style="width:0%"></div></div>
+    <div class="card-wrap" onclick="flip('menu')">
+      <div class="card-inner" id="menu-card">
+        <div class="card-face card-front" id="menu-front"></div>
+        <div class="card-face card-back" id="menu-back"></div>
+      </div>
+    </div>
+    <div class="deck-controls">
+      <div class="nav-row">
+        <button class="nav-btn" onclick="prev('menu')">←</button>
+        <button class="nav-btn primary" id="menu-flip" onclick="flip('menu')">Flip</button>
+        <button class="nav-btn" onclick="next('menu')">→</button>
+      </div>
+      <div class="extra-row">
+        <button class="extra-btn" onclick="shuffle('menu')">⇄ Shuffle</button>
+        <button class="extra-btn" onclick="reset('menu')">↺ Reset</button>
+      </div>
+      <div class="sr-row" id="menu-sr-row">
+        <button class="sr-btn sr-wrong"  id="menu-sr-wrong"  onclick="srMark('menu','wrong')">A = Incorrect</button>
+        <button class="sr-btn sr-unsure" id="menu-sr-unsure" onclick="srMark('menu','unsure')">S = Unsure</button>
+        <button class="sr-btn sr-right"  id="menu-sr-right"  onclick="srMark('menu','right')">D = Correct</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════ DRINKS SCREEN ═══════ -->
+<div id="drinks-screen" class="screen deck-screen lobster-theme">
+  <div class="deck-wrap">
+    <button class="back-btn" onclick="showScreen('home')">← Back</button>
+    <div class="deck-eyebrow">Reference</div>
+    <div class="deck-title">Drinks Cards</div>
+    <div class="deck-divider"></div>
+    <div class="cat-row" id="drinks-cats"></div>
+    <div class="progress" id="drinks-prog"></div>
+    <div class="sr-stats" id="drinks-sr-stats"></div>
+    <div class="sr-progress-bar-wrap"><div class="sr-progress-bar" id="drinks-sr-bar" style="width:0%"></div></div>
+    <div class="card-wrap" onclick="flip('drinks')">
+      <div class="card-inner" id="drinks-card">
+        <div class="card-face card-front" id="drinks-front"></div>
+        <div class="card-face card-back" id="drinks-back"></div>
+      </div>
+    </div>
+    <div class="deck-controls">
+      <div class="nav-row">
+        <button class="nav-btn" onclick="prev('drinks')">←</button>
+        <button class="nav-btn primary" id="drinks-flip" onclick="flip('drinks')">Flip</button>
+        <button class="nav-btn" onclick="next('drinks')">→</button>
+      </div>
+      <div class="extra-row">
+        <button class="extra-btn" onclick="shuffle('drinks')">⇄ Shuffle</button>
+        <button class="extra-btn" onclick="reset('drinks')">↺ Reset</button>
+      </div>
+      <div class="sr-row" id="drinks-sr-row">
+        <button class="sr-btn sr-wrong"  id="drinks-sr-wrong"  onclick="srMark('drinks','wrong')">A = Incorrect</button>
+        <button class="sr-btn sr-unsure" id="drinks-sr-unsure" onclick="srMark('drinks','unsure')">S = Unsure</button>
+        <button class="sr-btn sr-right"  id="drinks-sr-right"  onclick="srMark('drinks','right')">D = Correct</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════ CATERING SCREEN ═══════ -->
+<div id="catering-screen" class="screen deck-screen lobster-theme">
+  <div class="deck-wrap">
+    <button class="back-btn" onclick="showScreen('home')">← Back</button>
+    <div class="deck-eyebrow">Reference</div>
+    <div class="deck-title">Catering Cards</div>
+    <div class="deck-divider"></div>
+    <div class="cat-row" id="catering-cats"></div>
+    <div class="progress" id="catering-prog"></div>
+    <div class="sr-stats" id="catering-sr-stats"></div>
+    <div class="sr-progress-bar-wrap"><div class="sr-progress-bar" id="catering-sr-bar" style="width:0%"></div></div>
+    <div class="card-wrap" onclick="flip('catering')">
+      <div class="card-inner" id="catering-card">
+        <div class="card-face card-front" id="catering-front"></div>
+        <div class="card-face card-back" id="catering-back"></div>
+      </div>
+    </div>
+    <div class="deck-controls">
+      <div class="nav-row">
+        <button class="nav-btn" onclick="prev('catering')">←</button>
+        <button class="nav-btn primary" id="catering-flip" onclick="flip('catering')">Flip</button>
+        <button class="nav-btn" onclick="next('catering')">→</button>
+      </div>
+      <div class="extra-row">
+        <button class="extra-btn" onclick="shuffle('catering')">⇄ Shuffle</button>
+        <button class="extra-btn" onclick="reset('catering')">↺ Reset</button>
+      </div>
+      <div class="sr-row" id="catering-sr-row">
+        <button class="sr-btn sr-wrong"  id="catering-sr-wrong"  onclick="srMark('catering','wrong')">A = Incorrect</button>
+        <button class="sr-btn sr-unsure" id="catering-sr-unsure" onclick="srMark('catering','unsure')">S = Unsure</button>
+        <button class="sr-btn sr-right"  id="catering-sr-right"  onclick="srMark('catering','right')">D = Correct</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════ FOOD QUIZ SCREEN ═══════ -->
+<div id="foodq-screen" class="screen deck-screen">
+  <div class="deck-wrap">
+    <button class="back-btn" onclick="showScreen('home')">← Back</button>
+    <div class="deck-eyebrow">Quick Quiz</div>
+    <div class="deck-title">Food Quiz</div>
+    <div class="deck-divider"></div>
+    <div class="cat-row" id="foodq-cats"></div>
+    <div class="progress" id="foodq-prog"></div>
+    <div class="sr-stats" id="foodq-sr-stats"></div>
+    <div class="sr-progress-bar-wrap"><div class="sr-progress-bar" id="foodq-sr-bar" style="width:0%"></div></div>
+    <div class="card-wrap" onclick="flip('foodq')">
+      <div class="card-inner" id="foodq-card">
+        <div class="card-face card-front" id="foodq-front"></div>
+        <div class="card-face card-back" id="foodq-back"></div>
+      </div>
+    </div>
+    <div class="deck-controls">
+      <div class="nav-row">
+        <button class="nav-btn" onclick="prev('foodq')">←</button>
+        <button class="nav-btn primary" id="foodq-flip" onclick="flip('foodq')">Flip</button>
+        <button class="nav-btn" onclick="next('foodq')">→</button>
+      </div>
+      <div class="extra-row">
+        <button class="extra-btn" onclick="shuffle('foodq')">⇄ Shuffle</button>
+        <button class="extra-btn" onclick="reset('foodq')">↺ Reset</button>
+      </div>
+      <div class="sr-row" id="foodq-sr-row">
+        <button class="sr-btn sr-wrong"  id="foodq-sr-wrong"  onclick="srMark('foodq','wrong')">A = Incorrect</button>
+        <button class="sr-btn sr-unsure" id="foodq-sr-unsure" onclick="srMark('foodq','unsure')">S = Unsure</button>
+        <button class="sr-btn sr-right"  id="foodq-sr-right"  onclick="srMark('foodq','right')">D = Correct</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════ DRINKS QUIZ SCREEN ═══════ -->
+<div id="drinksq-screen" class="screen deck-screen lobster-theme">
+  <div class="deck-wrap">
+    <button class="back-btn" onclick="showScreen('home')">← Back</button>
+    <div class="deck-eyebrow">Quick Quiz</div>
+    <div class="deck-title">Drinks Quiz</div>
+    <div class="deck-divider"></div>
+    <div class="cat-row" id="drinksq-cats"></div>
+    <div class="progress" id="drinksq-prog"></div>
+    <div class="sr-stats" id="drinksq-sr-stats"></div>
+    <div class="sr-progress-bar-wrap"><div class="sr-progress-bar" id="drinksq-sr-bar" style="width:0%"></div></div>
+    <div class="card-wrap" onclick="flip('drinksq')">
+      <div class="card-inner" id="drinksq-card">
+        <div class="card-face card-front" id="drinksq-front"></div>
+        <div class="card-face card-back" id="drinksq-back"></div>
+      </div>
+    </div>
+    <div class="deck-controls">
+      <div class="nav-row">
+        <button class="nav-btn" onclick="prev('drinksq')">←</button>
+        <button class="nav-btn primary" id="drinksq-flip" onclick="flip('drinksq')">Flip</button>
+        <button class="nav-btn" onclick="next('drinksq')">→</button>
+      </div>
+      <div class="extra-row">
+        <button class="extra-btn" onclick="shuffle('drinksq')">⇄ Shuffle</button>
+        <button class="extra-btn" onclick="reset('drinksq')">↺ Reset</button>
+      </div>
+      <div class="sr-row" id="drinksq-sr-row">
+        <button class="sr-btn sr-wrong"  id="drinksq-sr-wrong"  onclick="srMark('drinksq','wrong')">A = Incorrect</button>
+        <button class="sr-btn sr-unsure" id="drinksq-sr-unsure" onclick="srMark('drinksq','unsure')">S = Unsure</button>
+        <button class="sr-btn sr-right"  id="drinksq-sr-right"  onclick="srMark('drinksq','right')">D = Correct</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════ CATERING QUIZ SCREEN ═══════ -->
+<div id="cateringq-screen" class="screen deck-screen lobster-theme">
+  <div class="deck-wrap">
+    <button class="back-btn" onclick="showScreen('home')">← Back</button>
+    <div class="deck-eyebrow">Quick Quiz</div>
+    <div class="deck-title">Catering Quiz</div>
+    <div class="deck-divider"></div>
+    <div class="cat-row" id="cateringq-cats"></div>
+    <div class="progress" id="cateringq-prog"></div>
+    <div class="sr-stats" id="cateringq-sr-stats"></div>
+    <div class="sr-progress-bar-wrap"><div class="sr-progress-bar" id="cateringq-sr-bar" style="width:0%"></div></div>
+    <div class="card-wrap" onclick="flip('cateringq')">
+      <div class="card-inner" id="cateringq-card">
+        <div class="card-face card-front" id="cateringq-front"></div>
+        <div class="card-face card-back" id="cateringq-back"></div>
+      </div>
+    </div>
+    <div class="deck-controls">
+      <div class="nav-row">
+        <button class="nav-btn" onclick="prev('cateringq')">←</button>
+        <button class="nav-btn primary" id="cateringq-flip" onclick="flip('cateringq')">Flip</button>
+        <button class="nav-btn" onclick="next('cateringq')">→</button>
+      </div>
+      <div class="extra-row">
+        <button class="extra-btn" onclick="shuffle('cateringq')">⇄ Shuffle</button>
+        <button class="extra-btn" onclick="reset('cateringq')">↺ Reset</button>
+      </div>
+      <div class="sr-row" id="cateringq-sr-row">
+        <button class="sr-btn sr-wrong"  id="cateringq-sr-wrong"  onclick="srMark('cateringq','wrong')">A = Incorrect</button>
+        <button class="sr-btn sr-unsure" id="cateringq-sr-unsure" onclick="srMark('cateringq','unsure')">S = Unsure</button>
+        <button class="sr-btn sr-right"  id="cateringq-sr-right"  onclick="srMark('cateringq','right')">D = Correct</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════ BOTTOM NAV ═══════ -->
+<nav class="bottom-nav">
+  <button class="nav-item active" id="nav-home" onclick="showScreen('home')">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg>
+    Home
+  </button>
+  <button class="nav-item" id="nav-menu" onclick="showScreen('menu-screen')">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14,2 14,8 20,8"/></svg>
+    Menu
+  </button>
+  <button class="nav-item" id="nav-drinks" onclick="showScreen('drinks-screen')">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M6 2h12l-1 6a6 6 0 01-5 5v7"/><path d="M8 22h8"/></svg>
+    Drinks
+  </button>
+  <button class="nav-item" id="nav-catering" onclick="showScreen('catering-screen')">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M3 11h18v10H3z"/><path d="M3 7h18v4H3z"/></svg>
+    Catering
+  </button>
+  <button class="nav-item" id="nav-foodq" onclick="showScreen('foodq-screen')">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3M12 17h.01"/></svg>
+    Food Q
+  </button>
+  <button class="nav-item" id="nav-drinksq" onclick="showScreen('drinksq-screen')">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v8M8 12h8"/></svg>
+    Drink Q
+  </button>
+  <button class="nav-item" id="nav-cateringq" onclick="showScreen('cateringq-screen')">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 12l3 3 5-6"/></svg>
+    Cater Q
+  </button>
+</nav>
+
+<!-- ═══════ SCRIPTS ═══════ -->
+<script>
+/* ═══════════════════════════════════════════════════════════
+   MENU DATA
+   Multi-category: each dish has categories: [...] so it can
+   appear under multiple filter pills (e.g. Most Popular + Handhelds)
+   ═══════════════════════════════════════════════════════════ */
+
+const DISHES = [
+
+  // ── REFERENCE CARDS (shown when filtering to Boil Buckets) ──
+  {
+    name: "Reference — Boil Sauces",
+    price: null,
+    categories: ["Boil Buckets"],
+    reference: true,
+    pitch: ["Cajun Butter", "Lemon Pepper Butter", "House Mix Butter"],
+    full: "Every boil bucket asks the guest to choose ONE sauce. The three options are: Cajun Butter, Lemon Pepper Butter, House Mix Butter.",
+    sauce_choices: [],
+    sides_included: [],
+    protein_choices: [],
+    halal: false,
+    mise: "",
+    note: "Always ask before ringing in — this is the #1 service detail on the menu."
+  },
+  {
+    name: "Reference — Boil Sides",
+    price: null,
+    categories: ["Boil Buckets"],
+    reference: true,
+    pitch: ["corn", "potatoes", "rice"],
+    full: "Every boil bucket comes with the fixed trio: corn, potatoes, rice — ALL THREE, always. No substitutions.",
+    sauce_choices: [],
+    sides_included: ["corn", "potatoes", "rice"],
+    protein_choices: [],
+    halal: false,
+    mise: "",
+    note: "Guest does not choose. Fixed trio, always all three."
+  },
+
+  // ── MOST POPULAR / CROSS-LISTED ─────────────────────────────
+  {
+    name: "Group Deal for Two",
+    price: 92.00,
+    categories: ["Most Popular", "Group Orders"],
+    pitch: ["calamari", "seafood boil", "2 pop drinks"],
+    full: "Fried Calamari + Seafood boil with ½ lb shrimp + ½ lb mussels + 2 lobster tails, served with corn, potatoes and 2 rice, coated in your choice of butter sauce + 2 pop drinks",
+    sauce_choices: ["Cajun Butter", "Lemon Pepper Butter", "House Mix Butter"],
+    sides_included: ["corn", "potatoes", "rice x2"],
+    protein_choices: [],
+    halal: false,
+    mise: "",
+    note: "Biggest ticket in Most Popular. Includes 2 pop drinks — confirm which pops."
+  },
+  {
+    name: "Shrimp & Mussel Bucket",
+    price: 31.95,
+    categories: ["Most Popular", "Boil Buckets"],
+    pitch: ["½ lb shrimp", "½ lb mussels", "3 sides"],
+    full: "½ lb shrimp + ½ lb mussels, coated with your choice of sauce, served with 3 sides (corn, potatoes, rice)",
+    sauce_choices: ["Cajun Butter", "Lemon Pepper Butter", "House Mix Butter"],
+    sides_included: ["corn", "potatoes", "rice"],
+    protein_choices: [],
+    halal: false,
+    mise: "",
+    note: "Cross-listed in Most Popular and Boil Buckets."
+  },
+  {
+    name: "Lobster Roll",
+    price: 32.95,
+    categories: ["Most Popular", "Handhelds"],
+    pitch: ["warm brioche", "butter-poached lobster", "fries"],
+    full: "A warm brioche bun filled with tender lobster meat cooked in butter. Served with a side of fries",
+    sauce_choices: [],
+    sides_included: ["fries"],
+    protein_choices: [],
+    halal: false,
+    mise: "",
+    note: "Signature item — the dish people come here for."
+  },
+  {
+    name: "1 LB Shrimp Boil Bucket",
+    price: 31.95,
+    categories: ["Most Popular", "Boil Buckets"],
+    pitch: ["1 lb shrimp", "choice of sauce", "3 sides"],
+    full: "1 LB Shrimp coated with your choice of sauce, served with 3 sides (corn, potatoes, rice)",
+    sauce_choices: ["Cajun Butter", "Lemon Pepper Butter", "House Mix Butter"],
+    sides_included: ["corn", "potatoes", "rice"],
+    protein_choices: [],
+    halal: false,
+    mise: "",
+    note: "Cross-listed in Most Popular and Boil Buckets."
+  },
+
+  // ── STARTERS ────────────────────────────────────────────────
+  {
+    name: "Seafood Soup",
+    price: 8.95,
+    categories: ["Starters"],
+    pitch: ["rich chicken broth", "shrimp + scallops", "garlic bread"],
+    full: "A delicious rich fresh soup with red pepper and celery based chicken broth, with shrimp and scallops. Served with garlic bread",
+    sauce_choices: [],
+    sides_included: ["garlic bread"],
+    protein_choices: [],
+    halal: false,
+    mise: "",
+    note: "Contains shellfish. Broth base is chicken — flag for pescatarians who avoid chicken."
+  },
+  {
+    name: "Kale Salad",
+    price: 7.95,
+    categories: ["Starters"],
+    pitch: ["kale", "dates + almonds", "honey olive oil"],
+    full: "Kale topped with dates, almonds, and a homemade honey olive oil dressing",
+    sauce_choices: [],
+    sides_included: [],
+    protein_choices: [],
+    halal: true,
+    mise: "",
+    note: "Vegetarian. Contains nuts (almonds) — flag for allergies."
+  },
+  {
+    name: "Royal Caesar Salad",
+    price: 7.95,
+    categories: ["Starters"],
+    pitch: ["romaine", "grilled slivered almonds", "caesar dressing"],
+    full: "Romaine Lettuce, Croutons, grilled slivered almonds. Topped with caesar dressing. Add grilled shrimp for $6",
+    sauce_choices: [],
+    sides_included: [],
+    protein_choices: ["Add grilled shrimp +$6"],
+    halal: false,
+    mise: "",
+    note: "Upsell: add grilled shrimp for $6. Contains nuts (almonds) and croutons (gluten)."
+  },
+  {
+    name: "Fried Calamari",
+    price: 16.95,
+    categories: ["Starters"],
+    pitch: ["fried calamari", "jalapeños", "sweet chilli + ranch"],
+    full: "Calamari with fried jalapeños served with sweet chilli & ranch",
+    sauce_choices: ["Sweet Chilli", "Ranch"],
+    sides_included: [],
+    protein_choices: [],
+    halal: false,
+    mise: "",
+    note: "Two dipping sauces come standard — mention both."
+  },
+  {
+    name: "Calamari & Shrimp",
+    price: 17.95,
+    categories: ["Starters"],
+    pitch: ["calamari + shrimp", "bed of fries", "three sauces"],
+    full: "Calamari & shrimp, fried jalapeños on a bed of fries. Served with house sauce, sweet chilli, & homemade ranch",
+    sauce_choices: ["House Sauce", "Sweet Chilli", "Homemade Ranch"],
+    sides_included: ["fries"],
+    protein_choices: [],
+    halal: false,
+    mise: "",
+    note: "Three sauces come standard — bigger plate than Fried Calamari."
+  },
+  {
+    name: "Dynamite Chicken",
+    price: 15.95,
+    categories: ["Starters"],
+    pitch: ["battered chicken", "dynamite sauce", "red cabbage"],
+    full: "Battered chicken coated in our dynamite sauce on a bed of red cabbage",
+    sauce_choices: ["Dynamite"],
+    sides_included: ["red cabbage"],
+    protein_choices: [],
+    halal: false,
+    mise: "",
+    note: "Dynamite = house spicy sauce. Mention heat level if guest asks."
+  },
+  {
+    name: "Dynamite Shrimp",
+    price: 15.95,
+    categories: ["Starters"],
+    pitch: ["battered shrimp", "dynamite sauce", "red cabbage"],
+    full: "Battered shrimp coated in our dynamite sauce on a bed of red cabbage",
+    sauce_choices: ["Dynamite"],
+    sides_included: ["red cabbage"],
+    protein_choices: [],
+    halal: false,
+    mise: "",
+    note: "Shrimp version of Dynamite Chicken — same sauce, same price."
+  },
+  {
+    name: "Mozzarella Sticks",
+    price: 8.95,
+    categories: ["Starters"],
+    pitch: ["crispy cheese sticks", "ranch dip", "shareable"],
+    full: "Crispy cheese sticks, served with ranch to dip",
+    sauce_choices: ["Ranch"],
+    sides_included: [],
+    protein_choices: [],
+    halal: true,
+    mise: "",
+    note: "Vegetarian — good option for non-seafood guests."
+  },
+  {
+    name: "Fries",
+    price: 4.95,
+    categories: ["Starters", "Sides"],
+    pitch: ["seasoned fries", "pick a flavour", "Cajun / Lemon Pepper / Plain"],
+    full: "Seasoned fries, pick between Cajun, Lemon Pepper or Plain",
+    sauce_choices: ["Cajun", "Lemon Pepper", "Plain"],
+    sides_included: [],
+    protein_choices: [],
+    halal: true,
+    mise: "",
+    note: "Guest must choose a seasoning — always ask which."
+  },
+  {
+    name: "Sweet Potato Fries",
+    price: 5.95,
+    categories: ["Starters", "Sides"],
+    pitch: ["sweet potato", "crispy", "shareable"],
+    full: "Sweet potato fries",
+    sauce_choices: [],
+    sides_included: [],
+    protein_choices: [],
+    halal: true,
+    mise: "",
+    note: "Vegetarian. Good upsell alongside any handheld."
+  },
+  {
+    name: "Onion Rings",
+    price: 6.95,
+    categories: ["Starters", "Sides"],
+    pitch: ["onion rings", "crispy", "ranch dip"],
+    full: "Onion Rings, served with ranch to dip",
+    sauce_choices: ["Ranch"],
+    sides_included: [],
+    protein_choices: [],
+    halal: true,
+    mise: "",
+    note: "Vegetarian. One sauce — ranch."
+  },
+
+  // ── HANDHELDS ───────────────────────────────────────────────
+  {
+    name: "Tacos — Shrimp",
+    price: 16.95,
+    categories: ["Handhelds"],
+    pitch: ["two tacos + fries", "shrimp", "guacamole"],
+    full: "Two tacos with fries. Shrimp topped with cabbage, crispy jalapeños, green onion & signature house sauce",
+    sauce_choices: ["Signature House Sauce", "Guacamole"],
+    sides_included: ["fries"],
+    protein_choices: ["Shrimp"],
+    halal: false,
+    mise: "",
+    note: "Shrimp taco comes with guacamole. Confirm guest's protein choice before ringing in."
+  },
+  {
+    name: "Tacos — Fish",
+    price: 16.95,
+    categories: ["Handhelds"],
+    pitch: ["two tacos + fries", "fish", "spicy tartar"],
+    full: "Two tacos with fries. Fish topped with cabbage, crispy jalapeños, green onion & signature house sauce",
+    sauce_choices: ["Signature House Sauce", "Spicy Tartar"],
+    sides_included: ["fries"],
+    protein_choices: ["Fish"],
+    halal: false,
+    mise: "",
+    note: "Fish taco includes spicy tartar. Confirm guest's protein choice before ringing in."
+  },
+  {
+    name: "Tacos — Chicken",
+    price: 16.95,
+    categories: ["Handhelds"],
+    pitch: ["two tacos + fries", "chicken", "house sauce"],
+    full: "Two tacos with fries. Chicken topped with cabbage, crispy jalapeños, green onion & signature house sauce",
+    sauce_choices: ["Signature House Sauce"],
+    sides_included: ["fries"],
+    protein_choices: ["Chicken"],
+    halal: false,
+    mise: "",
+    note: "Chicken taco uses house sauce. Confirm guest's protein choice before ringing in."
+  },
+
+  // ── BASKETS ─────────────────────────────────────────────────
+  {
+    name: "Fried Shrimp & Fries",
+    price: 15.95,
+    categories: ["Baskets"],
+    pitch: ["½ lb fried shrimp", "bed of fries", "dipping sauces"],
+    full: "Fried shrimp (1/2 lb) served on a bed of fries, with dipping sauces",
+    sauce_choices: ["House Sauce", "Ranch", "Sweet Chilli"],
+    sides_included: ["fries"],
+    protein_choices: [],
+    halal: false,
+    mise: "",
+    note: "Confirm which dipping sauces come standard — menu says 'dipping sauces' generically."
+  },
+  {
+    name: "Fish and Chips",
+    price: 15.95,
+    categories: ["Baskets"],
+    pitch: ["6oz haddock", "non-beer battered", "spicy tartar + house sauce"],
+    full: "One 6oz piece of non-beer battered haddock fish, served with fries, our homemade spicy tartar, and house sauce. Also, with a side of coleslaw",
+    sauce_choices: ["Homemade Spicy Tartar", "House Sauce"],
+    sides_included: ["fries", "coleslaw"],
+    protein_choices: [],
+    halal: false,
+    mise: "",
+    note: "Non-beer battered — important for guests avoiding alcohol."
+  },
+  {
+    name: "Shrimp Loaded Fries",
+    price: 17.95,
+    categories: ["Baskets"],
+    pitch: ["fried shrimp", "house + cheese sauce", "jalapeños"],
+    full: "Fried shrimp on a bed of fries, smothered in our signature house sauce, cheese sauce and jalapeños",
+    sauce_choices: ["Signature House Sauce", "Cheese Sauce"],
+    sides_included: ["fries"],
+    protein_choices: [],
+    halal: false,
+    mise: "",
+    note: "Contains dairy (cheese sauce)."
+  },
+  {
+    name: "Chicken Loaded Fries",
+    price: 17.95,
+    categories: ["Baskets"],
+    pitch: ["fried chicken", "house + cheese sauce", "jalapeños"],
+    full: "Fried chicken on a bed of fries, smothered in our signature house sauce, cheese sauce and jalapeños",
+    sauce_choices: ["Signature House Sauce", "Cheese Sauce"],
+    sides_included: ["fries"],
+    protein_choices: [],
+    halal: false,
+    mise: "",
+    note: "Same build as Shrimp Loaded Fries — check Halal scope for the chicken."
+  },
+  {
+    name: "Chicken Tenders Basket",
+    price: 15.95,
+    categories: ["Baskets"],
+    pitch: ["chicken tenders", "seasoned fries", "shareable"],
+    full: "Chicken tenders served with seasoned fries",
+    sauce_choices: ["House Sauce", "Ranch", "Sweet Chilli"],
+    sides_included: ["seasoned fries"],
+    protein_choices: [],
+    halal: false,
+    mise: "",
+    note: "Menu doesn't list sauces — confirm with kitchen what comes standard."
+  },
+  {
+    name: "Chicken Wings",
+    price: 18.95,
+    categories: ["Baskets"],
+    pitch: ["6 pcs Halal wings", "breaded", "your choice of sauce"],
+    full: "6 pcs of Halal breaded chicken wings, sauced and tossed in your choice of sauce, served with fries. Sauce Choices: Spicy Buffalo, Sweet Chilli, BBQ, & Honey Garlic or Mix of two!",
+    sauce_choices: ["Spicy Buffalo", "Sweet Chilli", "BBQ", "Honey Garlic", "Mix of two"],
+    sides_included: ["fries"],
+    protein_choices: [],
+    halal: true,
+    mise: "",
+    note: "HALAL — menu explicitly states this. Guest can mix two sauces."
+  },
+
+  // ── PASTA ───────────────────────────────────────────────────
+  {
+    name: "Shrimp Fettuccine Alfredo",
+    price: 18.95,
+    categories: ["Pasta"],
+    pitch: ["grilled shrimp", "Alfredo sauce", "toasted garlic bread"],
+    full: "Grilled shrimp smothered in an Alfredo sauce with perfectly cooked pasta. Served with toasted garlic bread",
+    sauce_choices: ["Alfredo"],
+    sides_included: ["toasted garlic bread"],
+    protein_choices: [],
+    halal: false,
+    mise: "",
+    note: "Contains dairy (Alfredo) and gluten (pasta, garlic bread)."
+  },
+  {
+    name: "Seafood Marinara Pasta",
+    price: 18.95,
+    categories: ["Pasta"],
+    pitch: ["grilled shrimp + scallops", "marinara", "toasted garlic bread"],
+    full: "Grilled shrimp and scallops, smothered in a marinara sauce with perfectly cooked pasta. Served with toasted garlic bread",
+    sauce_choices: ["Marinara"],
+    sides_included: ["toasted garlic bread"],
+    protein_choices: [],
+    halal: false,
+    mise: "",
+    note: "Contains shellfish (shrimp, scallops) and gluten."
+  },
+  {
+    name: "Gumbo Style Pasta",
+    price: 18.95,
+    categories: ["Pasta"],
+    pitch: ["shrimp + spicy sausage", "creamy coconut chilli", "green onions"],
+    full: "Grilled Shrimp and Spicy Sausage Tossed in Creamy Coconut Chilli Sauce & Green Onions. Served with garlic bread",
+    sauce_choices: ["Creamy Coconut Chilli"],
+    sides_included: ["garlic bread"],
+    protein_choices: [],
+    halal: false,
+    mise: "",
+    note: "Contains spicy sausage (confirm pork/beef) and shellfish. Coconut base — no dairy."
+  },
+
+  // ── BOIL BUCKETS (rest of the list) ─────────────────────────
+  {
+    name: "½ LB Shrimp Boil Bucket",
+    price: 21.95,
+    categories: ["Boil Buckets"],
+    pitch: ["½ lb shrimp", "choice of sauce", "3 sides"],
+    full: "½ LB Shrimp coated with your choice of sauce, served with 3 sides (corn, potatoes, rice)",
+    sauce_choices: ["Cajun Butter", "Lemon Pepper Butter", "House Mix Butter"],
+    sides_included: ["corn", "potatoes", "rice"],
+    protein_choices: [],
+    halal: false,
+    mise: "",
+    note: "Half-size version of the 1 LB Shrimp Boil."
+  },
+  {
+    name: "½ LB Mussel Boil Bucket",
+    price: 21.95,
+    categories: ["Boil Buckets"],
+    pitch: ["½ lb mussels", "choice of sauce", "3 sides"],
+    full: "½ LB half-shell mussels coated with your choice of sauce, served with 3 sides (corn, potatoes, rice)",
+    sauce_choices: ["Cajun Butter", "Lemon Pepper Butter", "House Mix Butter"],
+    sides_included: ["corn", "potatoes", "rice"],
+    protein_choices: [],
+    halal: false,
+    mise: "",
+    note: "Half-size version of the 1 LB Mussel Boil."
+  },
+  {
+    name: "1 LB Mussel Boil Bucket",
+    price: 31.95,
+    categories: ["Boil Buckets"],
+    pitch: ["1 lb half-shell mussels", "choice of sauce", "3 sides"],
+    full: "1 LB half-shell mussels coated with your choice of sauce, served with 3 sides (corn, potatoes, rice)",
+    sauce_choices: ["Cajun Butter", "Lemon Pepper Butter", "House Mix Butter"],
+    sides_included: ["corn", "potatoes", "rice"],
+    protein_choices: [],
+    halal: false,
+    mise: "",
+    note: "Menu currently shows this as '1 LB MUSSEL BOIL BUCKET COPY' — ask manager if it should be renamed or removed."
+  },
+  {
+    name: "Small Shell Shocker",
+    price: 53.95,
+    categories: ["Boil Buckets"],
+    pitch: ["shrimp + mussels", "one 4oz lobster tail", "3 sides"],
+    full: "½ lb shrimp + ½ lb mussels + One 4oz lobster tails, coated with your choice of sauce, served with 3 sides (corn, potatoes, rice)",
+    sauce_choices: ["Cajun Butter", "Lemon Pepper Butter", "House Mix Butter"],
+    sides_included: ["corn", "potatoes", "rice"],
+    protein_choices: [],
+    halal: false,
+    mise: "",
+    note: "One 4oz lobster tail. Step up from the Shrimp & Mussel Bucket."
+  },
+  {
+    name: "Large Shell Shocker",
+    price: 76.95,
+    categories: ["Boil Buckets"],
+    pitch: ["shrimp + mussels", "two 4oz lobster tails", "3 sides"],
+    full: "½ lb shrimp + ½ lb mussels + two 4oz lobster tails, coated with your choice of sauce, served with 3 sides (corn, potatoes, rice)",
+    sauce_choices: ["Cajun Butter", "Lemon Pepper Butter", "House Mix Butter"],
+    sides_included: ["corn", "potatoes", "rice"],
+    protein_choices: [],
+    halal: false,
+    mise: "",
+    note: "Two 4oz lobster tails. Bigger version of the Small Shell Shocker."
+  },
+  {
+    name: "½ LB Snow Crab Bucket",
+    price: 40.95,
+    categories: ["Boil Buckets"],
+    pitch: ["Atlantic snow crab", "1 cluster", "3 sides"],
+    full: "Atlantic snow crab (1 cluster) coated with your choice of sauce, served with 3 sides (corn, potatoes, rice)",
+    sauce_choices: ["Cajun Butter", "Lemon Pepper Butter", "House Mix Butter"],
+    sides_included: ["corn", "potatoes", "rice"],
+    protein_choices: [],
+    halal: false,
+    mise: "",
+    note: "1 cluster. Also appears on the second Boil Buckets screenshot — same item."
+  },
+  {
+    name: "1 LB Snow Crab Bucket",
+    price: 63.95,
+    categories: ["Boil Buckets"],
+    pitch: ["Atlantic snow crab", "2 clusters", "3 sides"],
+    full: "Atlantic snow crab (2 clusters) coated with your choice of sauce, served with 3 sides (corn, potatoes, rice)",
+    sauce_choices: ["Cajun Butter", "Lemon Pepper Butter", "House Mix Butter"],
+    sides_included: ["corn", "potatoes", "rice"],
+    protein_choices: [],
+    halal: false,
+    mise: "",
+    note: "2 clusters. Bigger version of the ½ LB Snow Crab."
+  },
+  {
+    name: "Royal Bucket",
+    price: 61.95,
+    categories: ["Boil Buckets"],
+    pitch: ["1 crab cluster", "shrimp + mussels", "3 sides"],
+    full: "One crab cluster (½ lb), ½ lb shrimp, ½ lb mussels, coated with your choice of sauce, served with 3 sides (corn, potatoes, rice)",
+    sauce_choices: ["Cajun Butter", "Lemon Pepper Butter", "House Mix Butter"],
+    sides_included: ["corn", "potatoes", "rice"],
+    protein_choices: [],
+    halal: false,
+    mise: "",
+    note: "One crab cluster + shrimp + mussels. Also appears on the second Boil Buckets screenshot."
+  },
+  {
+    name: "Large Royal Bucket",
+    price: 84.95,
+    categories: ["Boil Buckets"],
+    pitch: ["2 crab clusters", "shrimp + mussels", "3 sides"],
+    full: "Two crab clusters (½ lb), ½ lb shrimp, ½ lb mussels, coated with your choice of sauce, served with 3 sides (corn, potatoes, rice)",
+    sauce_choices: ["Cajun Butter", "Lemon Pepper Butter", "House Mix Butter"],
+    sides_included: ["corn", "potatoes", "rice"],
+    protein_choices: [],
+    halal: false,
+    mise: "",
+    note: "Two crab clusters. Bigger version of the Royal Bucket."
+  },
+  {
+    name: "Shrimp & Crawfish Bucket",
+    price: 31.95,
+    categories: ["Boil Buckets"],
+    pitch: ["½ lb shrimp", "½ lb crawfish", "3 sides"],
+    full: "½ lb shrimp + ½ lb crawfish served with 3 sides (corn, potatoes, rice)",
+    sauce_choices: ["Cajun Butter", "Lemon Pepper Butter", "House Mix Butter"],
+    sides_included: ["corn", "potatoes", "rice"],
+    protein_choices: [],
+    halal: false,
+    mise: "",
+    note: "Crawfish is seasonal — confirm availability before recommending."
+  },
+  {
+    name: "Crawfish Bucket",
+    price: 30.95,
+    categories: ["Boil Buckets"],
+    pitch: ["1 lb crawfish", "3 sides", "choice of sauce"],
+    full: "Crawfish (1 LB) with 3 sides (corn, potatoes, rice)",
+    sauce_choices: ["Cajun Butter", "Lemon Pepper Butter", "House Mix Butter"],
+    sides_included: ["corn", "potatoes", "rice"],
+    protein_choices: [],
+    halal: false,
+    mise: "",
+    note: "Crawfish is seasonal — confirm availability before recommending."
+  },
+  {
+    name: "Crack and Peel",
+    price: 78.95,
+    categories: ["Boil Buckets"],
+    pitch: ["shrimp + mussels", "lobster tail + snow crab", "3 sides"],
+    full: "½ lb shrimp + ½ lb mussels + one 4oz lobster tail + ½ lb snow crab cluster, coated with your choice of sauce, served with 3 sides (corn, potatoes, rice)",
+    sauce_choices: ["Cajun Butter", "Lemon Pepper Butter", "House Mix Butter"],
+    sides_included: ["corn", "potatoes", "rice"],
+    protein_choices: [],
+    halal: false,
+    mise: "",
+    note: "Big sampler — shrimp, mussels, lobster tail, snow crab. Second most expensive bucket."
+  },
+  {
+    name: "Lobster Catch",
+    price: 58.95,
+    categories: ["Boil Buckets"],
+    pitch: ["full lobster", "choice of sauce", "3 sides"],
+    full: "Full lobster coated with your choice of sauce, served with 3 sides (corn, potatoes, rice)",
+    sauce_choices: ["Cajun Butter", "Lemon Pepper Butter", "House Mix Butter"],
+    sides_included: ["corn", "potatoes", "rice"],
+    protein_choices: [],
+    halal: false,
+    mise: "",
+    note: "Full lobster — ask kitchen for weight before recommending to a guest."
+  },
+  {
+    name: "Build Your Own Boil Bucket",
+    price: null,
+    categories: ["Boil Buckets"],
+    pitch: ["build your own", "ask for pricing", "customize"],
+    full: "Custom boil bucket — guest picks their own seafood and sides. Ask manager for current pricing structure.",
+    sauce_choices: ["Cajun Butter", "Lemon Pepper Butter", "House Mix Butter"],
+    sides_included: ["corn", "potatoes", "rice"],
+    protein_choices: [],
+    halal: false,
+    mise: "",
+    note: "Menu shows CAD$0.01 as a placeholder. Actual pricing TBD — ask manager."
+  },
+
+  // ── GROUP ORDERS ────────────────────────────────────────────
+  {
+    name: "Family Combo (Good for Four)",
+    price: 185.00,
+    categories: ["Group Orders"],
+    pitch: ["seafood soup + salad", "shrimp + mussels + crab", "4 pop drinks"],
+    full: "Seafood soup (4) or salad (4) + Calamari & Shrimp Fries + 1 lb shrimp + 1 lb mussels + 1 lb crab + 2 lobster tails, served with corn, potatoes and 4 rice, Boil coated in your choice of butter sauce + 4 pop drinks",
+    sauce_choices: ["Cajun Butter", "Lemon Pepper Butter", "House Mix Butter"],
+    sides_included: ["corn", "potatoes", "rice x4"],
+    protein_choices: [],
+    halal: false,
+    mise: "",
+    note: "Feeds 4. Guest picks soup OR salad as the starter — always ask which."
+  },
+
+  // ── SIDES (extra ones not already covered) ──────────────────
+  {
+    name: "Cajun Butter Sauce (Side Boil Sauce)",
+    price: 4.95,
+    categories: ["Sides"],
+    pitch: ["extra Cajun butter", "side boil sauce", "for dipping"],
+    full: "Cajun Butter Sauce (Side Boil Sauce)",
+    sauce_choices: [],
+    sides_included: [],
+    protein_choices: [],
+    halal: false,
+    mise: "",
+    note: "Extra side of the Cajun Butter boil sauce."
+  },
+  {
+    name: "Lemon Pepper Butter Sauce (Side Boil Sauce)",
+    price: 4.95,
+    categories: ["Sides"],
+    pitch: ["extra lemon pepper butter", "side boil sauce", "for dipping"],
+    full: "Lemon Pepper Butter Sauce (Side Boil Sauce)",
+    sauce_choices: [],
+    sides_included: [],
+    protein_choices: [],
+    halal: false,
+    mise: "",
+    note: "Extra side of the Lemon Pepper Butter boil sauce."
+  },
+  {
+    name: "House Mix Butter Sauce (Side Boil Sauce)",
+    price: 4.95,
+    categories: ["Sides"],
+    pitch: ["extra house mix butter", "side boil sauce", "for dipping"],
+    full: "House Mix Butter Sauce (Side Boil Sauce)",
+    sauce_choices: [],
+    sides_included: [],
+    protein_choices: [],
+    halal: false,
+    mise: "",
+    note: "Extra side of the House Mix Butter boil sauce."
+  },
+  {
+    name: "House Dipping Sauce",
+    price: 1.50,
+    categories: ["Sides"],
+    pitch: ["house-made", "best for fried items", "fries dip"],
+    full: "House-made dipping sauce, best for fried and fries",
+    sauce_choices: [],
+    sides_included: [],
+    protein_choices: [],
+    halal: false,
+    mise: "",
+    note: "Best paired with fried items and fries."
+  },
+  {
+    name: "Spicy Homemade Tartar Sauce",
+    price: 1.50,
+    categories: ["Sides"],
+    pitch: ["spicy tartar", "homemade", "for fish"],
+    full: "Spicy Homemade Tartar Sauce",
+    sauce_choices: [],
+    sides_included: [],
+    protein_choices: [],
+    halal: false,
+    mise: "",
+    note: "Extra side of the spicy tartar — good upsell with Fish and Chips."
+  },
+  {
+    name: "Side: Boiled Egg",
+    price: 4.95,
+    categories: ["Sides"],
+    pitch: ["boiled egg", "add to boil", "protein boost"],
+    full: "Boiled egg",
+    sauce_choices: [],
+    sides_included: [],
+    protein_choices: [],
+    halal: true,
+    mise: "",
+    note: "Common add-on to a boil bucket."
+  },
+  {
+    name: "Side: Brioche Bread",
+    price: 2.50,
+    categories: ["Sides"],
+    pitch: ["brioche", "for dipping", "soak up sauce"],
+    full: "Brioche bread",
+    sauce_choices: [],
+    sides_included: [],
+    protein_choices: [],
+    halal: false,
+    mise: "",
+    note: "Good for soaking up boil sauce — suggest with any bucket."
+  },
+  {
+    name: "Side: Corn",
+    price: 4.95,
+    categories: ["Sides"],
+    pitch: ["corn on the cob", "cut", "boil add-on"],
+    full: "Corn on the cob cut",
+    sauce_choices: [],
+    sides_included: [],
+    protein_choices: [],
+    halal: true,
+    mise: "",
+    note: "Extra corn — the boil trio already includes corn."
+  },
+  {
+    name: "Side: Rice",
+    price: 3.95,
+    categories: ["Sides"],
+    pitch: ["rice", "boil add-on", "side"],
+    full: "Rice",
+    sauce_choices: [],
+    sides_included: [],
+    protein_choices: [],
+    halal: true,
+    mise: "",
+    note: "Extra rice — the boil trio already includes rice."
+  },
+  {
+    name: "Side: Broccoli",
+    price: 4.95,
+    categories: ["Sides"],
+    pitch: ["broccoli", "green side", "healthy add-on"],
+    full: "Broccoli",
+    sauce_choices: [],
+    sides_included: [],
+    protein_choices: [],
+    halal: true,
+    mise: "",
+    note: "Vegetarian — good green option."
+  },
+  {
+    name: "Side: Ramen Noodles",
+    price: 4.95,
+    categories: ["Sides"],
+    pitch: ["ramen noodles", "boil add-on", "soak up sauce"],
+    full: "Ramen noodles",
+    sauce_choices: [],
+    sides_included: [],
+    protein_choices: [],
+    halal: true,
+    mise: "",
+    note: "Great add-on for guests who want more noodles with their boil."
+  },
+  {
+    name: "Scissors",
+    price: 7.95,
+    categories: ["Sides"],
+    pitch: ["crab scissors", "cut through shell", "essential tool"],
+    full: "Perfect pair of tools to cut through your crab!",
+    sauce_choices: [],
+    sides_included: [],
+    protein_choices: [],
+    halal: false,
+    mise: "",
+    note: "Sold as an add-on, not a food item. Offer to guests ordering crab."
+  },
+
+  // ── KIDS SIZE ───────────────────────────────────────────────
+  {
+    name: "Kids Chicken Tenders",
+    price: 11.95,
+    categories: ["Kids"],
+    pitch: ["fried chicken (3)", "choice of side", "kid-size"],
+    full: "Fried chicken (3) served with a choice of fries, rice or corn",
+    sauce_choices: ["Fries", "Rice", "Corn"],
+    sides_included: [],
+    protein_choices: [],
+    halal: false,
+    mise: "",
+    note: "Guest picks the side — fries, rice or corn."
+  },
+  {
+    name: "Kids Fish and Chips",
+    price: 11.95,
+    categories: ["Kids"],
+    pitch: ["fried fish", "choice of side", "kid-size"],
+    full: "Fried fish with your choice of fries, corn or rice",
+    sauce_choices: ["Fries", "Corn", "Rice"],
+    sides_included: [],
+    protein_choices: [],
+    halal: false,
+    mise: "",
+    note: "Guest picks the side — fries, corn or rice."
+  },
+  {
+    name: "Kids Shrimp and Fries",
+    price: 11.95,
+    categories: ["Kids"],
+    pitch: ["fried shrimp (6)", "choice of side", "kid-size"],
+    full: "Fried shrimp (6) with a choice of fries, corn or rice",
+    sauce_choices: ["Fries", "Corn", "Rice"],
+    sides_included: [],
+    protein_choices: [],
+    halal: false,
+    mise: "",
+    note: "Guest picks the side — fries, corn or rice."
+  },
+
+  // ── DESSERTS ────────────────────────────────────────────────
+  {
+    name: "Candy Floss with Ice Cream",
+    price: 5.95,
+    categories: ["Desserts"],
+    pitch: ["French vanilla ice cream", "candy floss", "shareable"],
+    full: "French Vanilla ice cream topped with candy floss cotton candy.",
+    sauce_choices: [],
+    sides_included: [],
+    protein_choices: [],
+    halal: true,
+    mise: "",
+    note: "Fun for kids. Contains dairy."
+  },
+  {
+    name: "Mini Brownies with Ice Cream",
+    price: 5.95,
+    categories: ["Desserts"],
+    pitch: ["mini chocolate brownie", "French vanilla ice cream", "warm + cold"],
+    full: "Mini chocolate brownie with French vanilla ice cream",
+    sauce_choices: [],
+    sides_included: [],
+    protein_choices: [],
+    halal: true,
+    mise: "",
+    note: "Contains dairy and gluten."
+  },
+  {
+    name: "Molton Lava Cake",
+    price: 7.95,
+    categories: ["Desserts"],
+    pitch: ["molten centre", "chocolate", "warm dessert"],
+    full: "Molten Lava Cake",
+    sauce_choices: [],
+    sides_included: [],
+    protein_choices: [],
+    halal: true,
+    mise: "",
+    note: "Menu spells it 'Molton' — actual spelling is 'Molten'. Confirm with manager."
+  },
+  {
+    name: "Hot and Cold",
+    price: 5.95,
+    categories: ["Desserts"],
+    pitch: ["vanilla ice cream", "raspberries + blackberries", "fresh berries"],
+    full: "Vanilla Ice Cream with raspberries & blackberries",
+    sauce_choices: [],
+    sides_included: [],
+    protein_choices: [],
+    halal: true,
+    mise: "",
+    note: "Contains dairy. Vegetarian."
+  },
+  {
+    name: "Ice Cream",
+    price: 2.50,
+    categories: ["Desserts"],
+    pitch: ["vanilla scoop", "simple", "add-on"],
+    full: "Scoop of vanilla ice cream.",
+    sauce_choices: [],
+    sides_included: [],
+    protein_choices: [],
+    halal: true,
+    mise: "",
+    note: "Simple single scoop. Good add-on to any dessert."
+  }
+
+];
+
+/* ═══════════════════════════════════════════════════════════
+   DRINKS DATA
+   ═══════════════════════════════════════════════════════════ */
+
+const DRINKS = [
+  // ── MOCKTAILS / FAVOURITES ──────────────────────────────────
+  {
+    name: "Apple Lemonade",
+    price: 5.95,
+    category: "Mocktails",
+    pitch: ["apple", "lemonade", "refreshing"],
+    full: "Apple Lemonade — house mocktail.",
+    note: "Part of the LBSH Favourites lineup."
+  },
+  {
+    name: "Blue Raspberry Lemonade",
+    price: 5.95,
+    category: "Mocktails",
+    pitch: ["blue raspberry", "lemon", "cranberry"],
+    full: "Blue Raspberry, Lemon, and Cranberry",
+    note: "Three-fruit blend — sweet and tart."
+  },
+  {
+    name: "Strawberry Mocktail",
+    price: 5.95,
+    category: "Mocktails",
+    pitch: ["strawberry", "refreshing", "pairs with seafood"],
+    full: "Our strawberry mocktail is refreshing and a perfect pair with your seafood",
+    note: "Menu explicitly suggests pairing with seafood — use this as an upsell line."
+  },
+  {
+    name: "Tropical Sunshine",
+    price: 5.95,
+    category: "Mocktails",
+    pitch: ["mango + pineapple", "sparkling lemon", "tropical"],
+    full: "A mango & pineapple, sparkling lemon mocktail",
+    note: "Sparkling — good as an opening drink."
+  },
+  {
+    name: "Pina Colada",
+    price: 5.95,
+    category: "Mocktails",
+    pitch: ["sweet", "fruity", "slushie"],
+    full: "A sweet and fruity slushie",
+    note: "Non-alcoholic version — slushie style."
+  },
+
+  // ── COLD DRINKS ─────────────────────────────────────────────
+  {
+    name: "Apple Juice",
+    price: 3.95,
+    category: "Cold Drinks",
+    pitch: ["apple juice", "bottled", "kid-friendly"],
+    full: "Bottled apple juice.",
+    note: "Popular with kids."
+  },
+  {
+    name: "Coke",
+    price: 2.50,
+    category: "Cold Drinks",
+    pitch: ["classic coke", "fountain", "cold"],
+    full: "Coca-Cola.",
+    note: "Standard fountain soda."
+  },
+  {
+    name: "Coke Zero",
+    price: 2.50,
+    category: "Cold Drinks",
+    pitch: ["zero sugar", "coke", "cold"],
+    full: "Coca-Cola Zero Sugar.",
+    note: "Zero sugar option."
+  },
+  {
+    name: "Diet Coke",
+    price: 2.50,
+    category: "Cold Drinks",
+    pitch: ["diet", "light", "cold"],
+    full: "Diet Coke.",
+    note: "Standard fountain soda."
+  },
+  {
+    name: "Sprite",
+    price: 2.50,
+    category: "Cold Drinks",
+    pitch: ["lemon-lime", "crisp", "cold"],
+    full: "Sprite.",
+    note: "Lemon-lime soda."
+  },
+  {
+    name: "Fresca",
+    price: 2.50,
+    category: "Cold Drinks",
+    pitch: ["grapefruit", "diet", "light"],
+    full: "Fresca.",
+    note: "Grapefruit-flavoured soda."
+  },
+  {
+    name: "Ginger Ale",
+    price: 2.50,
+    category: "Cold Drinks",
+    pitch: ["ginger ale", "crisp", "settles stomach"],
+    full: "Ginger Ale.",
+    note: "Good for guests who feel queasy or want something lighter than cola."
+  },
+  {
+    name: "Mango Juice",
+    price: 3.95,
+    category: "Cold Drinks",
+    pitch: ["mango", "bottled", "tropical"],
+    full: "Bottled mango juice.",
+    note: "Tropical — pairs with the seafood theme."
+  },
+  {
+    name: "Orange Juice",
+    price: 3.95,
+    category: "Cold Drinks",
+    pitch: ["orange juice", "bottled", "classic"],
+    full: "Bottled orange juice.",
+    note: "Classic breakfast/morning juice."
+  },
+  {
+    name: "Iced Tea",
+    price: 2.50,
+    category: "Cold Drinks",
+    pitch: ["iced tea", "cold", "refreshing"],
+    full: "Iced tea.",
+    note: "Standard iced tea."
+  },
+  {
+    name: "Sparkling Water",
+    price: 2.50,
+    category: "Cold Drinks",
+    pitch: ["sparkling", "bubbles", "refreshing"],
+    full: "Sparkling water.",
+    note: "Offer with lime when possible."
+  },
+  {
+    name: "Water Bottle",
+    price: 1.95,
+    category: "Cold Drinks",
+    pitch: ["still water", "bottled", "basic"],
+    full: "Bottled still water.",
+    note: "Cheapest drink on the menu."
+  },
+
+  // ── HOT DRINKS ──────────────────────────────────────────────
+  {
+    name: "Hot Tea",
+    price: 2.50,
+    category: "Hot Drinks",
+    pitch: ["hot tea", "warm", "after meal"],
+    full: "Hot tea.",
+    note: "Good end-of-meal drink."
+  },
+  {
+    name: "Coffee",
+    price: 2.50,
+    category: "Hot Drinks",
+    pitch: ["coffee", "hot", "after meal"],
+    full: "Coffee.",
+    note: "Good end-of-meal drink."
+  },
+
+  // ── NON-ALCOHOLIC BEER ──────────────────────────────────────
+  {
+    name: "Corona 0%",
+    price: 3.95,
+    category: "Non-Alcoholic Beer",
+    pitch: ["Corona 0.0", "non-alcoholic", "beer alternative"],
+    full: "Corona 0% — non-alcoholic beer.",
+    note: "Only non-alcoholic beer option. Good for guests who want a beer with dinner but can't drink."
+  }
+];
+
+/* ═══════════════════════════════════════════════════════════
+   CATERING DATA
+   ═══════════════════════════════════════════════════════════ */
+
+const CATERING = [
+  // ── SALAD TRAYS ─────────────────────────────────────────────
+  {
+    name: "Caesar Salad — Catering Size",
+    price: 25.00,
+    price_range: null,
+    category: "Salad Trays",
+    pitch: ["serves 4-6", "romaine", "creamy dressing + croutons"],
+    full: "Good for 4-6 people. Romaine lettuce coated in a creamy dressing, topped with croutons",
+    feeds: "4–6 people",
+    includes: ["Romaine lettuce", "Creamy Caesar dressing", "Croutons"],
+    note: "Entry-level catering tray — good for small office orders."
+  },
+
+  // ── SLIDER TRAYS ────────────────────────────────────────────
+  {
+    name: "Chicken Slider Tray — Catering",
+    price: null,
+    price_range: "$50.00 – $100.00",
+    category: "Slider Trays",
+    pitch: ["fried chicken", "red cabbage", "house sauce"],
+    full: "Fried chicken with red cabbage & house sauce",
+    feeds: "Varies by tray size",
+    includes: ["Fried chicken", "Red cabbage", "House sauce", "Slider buns"],
+    note: "Two-tier pricing — small $50, large $100. Confirm size with guest."
+  },
+  {
+    name: "Fish Slider Tray — Catering",
+    price: null,
+    price_range: "$45.00 – $90.00",
+    category: "Slider Trays",
+    pitch: ["battered fish", "green onion + red cabbage", "house sauce + spicy tartar"],
+    full: "Battered fish, green onion, red cabbage with house sauce and spicy tartar",
+    feeds: "Varies by tray size",
+    includes: ["Battered fish", "Green onion", "Red cabbage", "House sauce", "Spicy tartar", "Slider buns"],
+    note: "Small $45, large $90. Two sauces come with it."
+  },
+  {
+    name: "Shrimp Slider Tray — Catering",
+    price: null,
+    price_range: "$45.00 – $90.00",
+    category: "Slider Trays",
+    pitch: ["fried shrimp", "lettuce + green onion", "jalapeño"],
+    full: "Fried shrimp, lettuce, green onion, jalapeño",
+    feeds: "Varies by tray size",
+    includes: ["Fried shrimp", "Lettuce", "Green onion", "Jalapeño", "Slider buns"],
+    note: "Small $45, large $90."
+  },
+  {
+    name: "Lobster Slider Tray — Catering",
+    price: null,
+    price_range: "$125.00 – $250.00",
+    category: "Slider Trays",
+    pitch: ["lobster + butter", "green onion", "premium tray"],
+    full: "Lobster with butter, topped with green onion",
+    feeds: "Varies by tray size",
+    includes: ["Lobster", "Butter", "Green onion", "Slider buns"],
+    note: "Most expensive slider tray. Small $125, large $250. Premium event upsell."
+  },
+  {
+    name: "Sausage Slider Tray — Catering",
+    price: null,
+    price_range: "$45.00 – $90.00",
+    category: "Slider Trays",
+    pitch: ["beef sausage", "brioche bun", "house sauce + red cabbage"],
+    full: "Beef sausage on a brioche bun with house sauce and red cabbage",
+    feeds: "Varies by tray size",
+    includes: ["Beef sausage", "Brioche buns", "House sauce", "Red cabbage"],
+    note: "Confirm Halal status of the beef sausage if guest asks. Small $45, large $90."
+  },
+
+  // ── PACKAGES ────────────────────────────────────────────────
+  {
+    name: "Office Lunch Package — Catering",
+    price: 185.00,
+    price_range: null,
+    category: "Packages",
+    pitch: ["10 rolls", "fish or shrimp", "feeds 10"],
+    full: "10 Rolls (cut in half) Fish Roll — Battered fish, green onion, red cabbage with house sauce & tartar sauce. OR Shrimp Roll — Fried shrimp, lettuce, green onion, jalapeños and house sauce. Large Fries Tray. Large Caesar Salad. 10 Drinks. Feeds 10 people. Over $217 value.",
+    feeds: "10 people",
+    includes: ["10 Fish Rolls OR 10 Shrimp Rolls", "Large Fries Tray", "Large Caesar Salad", "10 Drinks"],
+    note: "Guest must choose Fish Rolls OR Shrimp Rolls — always ask. Advertised as over $217 value."
+  },
+
+  // ── PARTY TRAYS ─────────────────────────────────────────────
+  {
+    name: "Party Starters Catering Tray",
+    price: 95.00,
+    price_range: null,
+    category: "Party Trays",
+    pitch: ["calamari + shrimp + fries", "dynamite sauce", "feeds 6-8"],
+    full: "Calamari Tray: Perfectly seasoned fried calamari. Fried Shrimp Tray: Crispy light fried shrimp served with dynamite sauce. Fries Tray: Crispy seasoned fries. Feeds 6-8 people. Over $120 value.",
+    feeds: "6–8 people",
+    includes: ["Fried calamari tray", "Fried shrimp tray", "Dynamite sauce", "Crispy seasoned fries tray"],
+    note: "Advertised as over $120 value. Good for casual gatherings."
+  },
+  {
+    name: "Party Boil Catering Tray",
+    price: 249.00,
+    price_range: null,
+    category: "Party Trays",
+    pitch: ["5 lb shrimp + 2 lb mussels", "corn + potatoes", "feeds 8-10"],
+    full: "Seafood Boil: 5 lbs of Shrimp, 2 lbs of Mussels, Corn & Potatoes coated with our Signature Butter Sauce. Large Rice Tray. Side Butter Sauce included. Lemon Wedges. 10 Bibs. 10 Gloves. Feeds 8-10 people. Over $290 value.",
+    feeds: "8–10 people",
+    includes: ["5 lb shrimp", "2 lb mussels", "Corn", "Potatoes", "Signature Butter Sauce", "Large Rice Tray", "Side Butter Sauce", "Lemon wedges", "10 Bibs", "10 Gloves"],
+    note: "Advertised as over $290 value. Includes bibs and gloves."
+  },
+  {
+    name: "Seafood Feast Catering Tray",
+    price: 429.00,
+    price_range: null,
+    category: "Feast Trays",
+    pitch: ["shrimp + mussels + lobster", "crab + corn + potatoes", "feeds 9-12"],
+    full: "Seafood Boil: 3 lbs of Shrimp, 2 lbs of Mussels, 5 Lobster Tails (cut in half), 5 Crab Clusters (2.5 lbs), Corn & Potatoes coated with our Signature Butter Sauce. Rice Tray. Side Butter Sauce included. Lemon Wedges. 12 Bibs. 12 Gloves. Feeds 9-12 people. Over $635 value.",
+    feeds: "9–12 people",
+    includes: ["3 lb shrimp", "2 lb mussels", "5 lobster tails (halved)", "5 crab clusters (2.5 lb)", "Corn", "Potatoes", "Signature Butter Sauce", "Rice Tray", "Side Butter Sauce", "Lemon wedges", "12 Bibs", "12 Gloves"],
+    note: "Biggest catering package. Advertised as over $635 value. Premium event option."
+  }
+];
+
+/* ═══════════════════════════════════════════════════════════
+   FOOD QUIZ
+   ═══════════════════════════════════════════════════════════ */
+
+const FOOD_QUIZ = [
+  // ── SAUCES ──────────────────────────────────────────────────
+  {
+    section: "Sauces",
+    q: "What are the 3 boil sauce choices?",
+    a: "Cajun Butter · Lemon Pepper Butter · House Mix Butter",
+    context: "Every boil bucket — guest must pick one."
+  },
+  {
+    section: "Sauces",
+    q: "Which sauce is house-made and best for fried items?",
+    a: "House Dipping Sauce — $1.50",
+    context: "Side. Best for fried items and fries."
+  },
+  {
+    section: "Sauces",
+    q: "How much is an extra side of Cajun Butter Sauce?",
+    a: "$4.95",
+    context: "Side Boil Sauce. Same price for all 3 boil sauces."
+  },
+  {
+    section: "Sauces",
+    q: "Which sauce comes with the Dynamite Chicken?",
+    a: "Dynamite sauce — the house spicy sauce",
+    context: "Same sauce on the Dynamite Shrimp."
+  },
+  {
+    section: "Sauces",
+    q: "What are the Chicken Wings sauce options?",
+    a: "Spicy Buffalo · Sweet Chilli · BBQ · Honey Garlic · Mix of two",
+    context: "Guest can mix any two."
+  },
+  {
+    section: "Sauces",
+    q: "What sauces come with the Fried Calamari?",
+    a: "Sweet Chilli + Ranch",
+    context: "Two sauces standard."
+  },
+  {
+    section: "Sauces",
+    q: "What sauces come with the Calamari & Shrimp?",
+    a: "House Sauce · Sweet Chilli · Homemade Ranch",
+    context: "Three sauces — bigger plate than Fried Calamari."
+  },
+  {
+    section: "Sauces",
+    q: "How much is Spicy Homemade Tartar Sauce as a side?",
+    a: "$1.50",
+    context: "Good upsell with Fish and Chips."
+  },
+
+  // ── SIDES ───────────────────────────────────────────────────
+  {
+    section: "Sides",
+    q: "What 3 sides come with every boil bucket?",
+    a: "Corn · Potatoes · Rice — all three, always",
+    context: "Fixed trio. No substitutions."
+  },
+  {
+    section: "Sides",
+    q: "Can a guest swap a side on their boil bucket?",
+    a: "No — fixed trio. Corn, potatoes, rice always.",
+    context: "Confirm if they ask."
+  },
+  {
+    section: "Sides",
+    q: "What seasoning choices for the Fries?",
+    a: "Cajun · Lemon Pepper · Plain",
+    context: "Always ask which seasoning."
+  },
+  {
+    section: "Sides",
+    q: "How much is a Side: Boiled Egg?",
+    a: "$4.95",
+    context: "Common boil add-on."
+  },
+  {
+    section: "Sides",
+    q: "How much is a Side: Brioche Bread?",
+    a: "$2.50",
+    context: "Great for soaking up boil sauce."
+  },
+  {
+    section: "Sides",
+    q: "How much is a Side: Ramen Noodles?",
+    a: "$4.95",
+    context: "Good add-on for guests who want more noodles with their boil."
+  },
+  {
+    section: "Sides",
+    q: "How much is Scissors as a side?",
+    a: "$7.95",
+    context: "Sold as an add-on for cutting through crab shell."
+  },
+  {
+    section: "Sides",
+    q: "How much is a Side: Corn?",
+    a: "$4.95",
+    context: "Corn on the cob cut. Boil trio already includes corn."
+  },
+  {
+    section: "Sides",
+    q: "How much is a Side: Rice?",
+    a: "$3.95",
+    context: "Boil trio already includes rice."
+  },
+  {
+    section: "Sides",
+    q: "How much is a Side: Broccoli?",
+    a: "$4.95",
+    context: "Vegetarian side option."
+  },
+
+  // ── INGREDIENTS ─────────────────────────────────────────────
+  {
+    section: "Ingredients",
+    q: "What's in the Seafood Soup?",
+    a: "Red pepper & celery chicken broth with shrimp and scallops",
+    context: "Served with garlic bread."
+  },
+  {
+    section: "Ingredients",
+    q: "What's in the Kale Salad?",
+    a: "Kale, dates, almonds, honey olive oil dressing",
+    context: "Contains nuts."
+  },
+  {
+    section: "Ingredients",
+    q: "What's in the Royal Caesar Salad?",
+    a: "Romaine, croutons, grilled slivered almonds, caesar dressing",
+    context: "Add grilled shrimp +$6."
+  },
+  {
+    section: "Ingredients",
+    q: "What's in the Gumbo Style Pasta?",
+    a: "Grilled shrimp + spicy sausage, creamy coconut chilli sauce, green onions",
+    context: "Coconut base — no dairy."
+  },
+  {
+    section: "Ingredients",
+    q: "What's in the Shrimp Fettuccine Alfredo?",
+    a: "Grilled shrimp, Alfredo sauce, pasta, toasted garlic bread",
+    context: "Contains dairy and gluten."
+  },
+  {
+    section: "Ingredients",
+    q: "What's in the Seafood Marinara Pasta?",
+    a: "Grilled shrimp + scallops, marinara sauce, pasta, toasted garlic bread",
+    context: "Contains shellfish and gluten."
+  },
+  {
+    section: "Ingredients",
+    q: "What toppings come on the Tacos?",
+    a: "Cabbage, crispy jalapeños, green onion, signature house sauce",
+    context: "Protein determines the sauce — shrimp=guac, fish=tartar, chicken=house."
+  },
+  {
+    section: "Ingredients",
+    q: "What's on the Lobster Roll?",
+    a: "Warm brioche bun, tender lobster meat cooked in butter",
+    context: "Served with a side of fries."
+  },
+  {
+    section: "Ingredients",
+    q: "What's on the Fish and Chips?",
+    a: "6oz non-beer battered haddock, fries, homemade spicy tartar, house sauce, coleslaw",
+    context: "Non-beer battered — important for guests avoiding alcohol."
+  },
+  {
+    section: "Ingredients",
+    q: "What's on the Shrimp Loaded Fries?",
+    a: "Fried shrimp, fries, signature house sauce, cheese sauce, jalapeños",
+    context: "Contains dairy."
+  },
+  {
+    section: "Ingredients",
+    q: "What's on the Chicken Loaded Fries?",
+    a: "Fried chicken, fries, signature house sauce, cheese sauce, jalapeños",
+    context: "Same build as Shrimp Loaded Fries."
+  },
+
+  // ── PITCH ───────────────────────────────────────────────────
+  {
+    section: "Pitch",
+    q: "3 ingredients to pitch for Lobster Roll",
+    a: "warm brioche · butter-poached lobster · fries",
+    context: "$32.95 — Most Popular + Handhelds"
+  },
+  {
+    section: "Pitch",
+    q: "3 ingredients to pitch for Fish and Chips",
+    a: "6oz haddock · non-beer battered · spicy tartar",
+    context: "$15.95 — Baskets"
+  },
+  {
+    section: "Pitch",
+    q: "3 ingredients to pitch for Group Deal for Two",
+    a: "calamari · seafood boil · 2 pop drinks",
+    context: "$92.00 — Most Popular + Group Orders"
+  },
+  {
+    section: "Pitch",
+    q: "3 ingredients to pitch for Shrimp & Mussel Bucket",
+    a: "½ lb shrimp · ½ lb mussels · 3 sides",
+    context: "$31.95 — Most Popular + Boil Buckets"
+  },
+  {
+    section: "Pitch",
+    q: "3 ingredients to pitch for Small Shell Shocker",
+    a: "shrimp + mussels · one 4oz lobster tail · 3 sides",
+    context: "$53.95 — Boil Buckets"
+  },
+  {
+    section: "Pitch",
+    q: "3 ingredients to pitch for Crack and Peel",
+    a: "shrimp + mussels · lobster tail + snow crab · 3 sides",
+    context: "$78.95 — Boil Buckets"
+  },
+  {
+    section: "Pitch",
+    q: "3 ingredients to pitch for Lobster Catch",
+    a: "full lobster · choice of sauce · 3 sides",
+    context: "$58.95 — Boil Buckets"
+  },
+
+  // ── DETAILS ─────────────────────────────────────────────────
+  {
+    section: "Details",
+    q: "How much is the Group Deal for Two?",
+    a: "$92.00",
+    context: "Includes 2 pop drinks and 2 lobster tails."
+  },
+  {
+    section: "Details",
+    q: "How much is the Lobster Roll?",
+    a: "$32.95",
+    context: "Signature — Most Popular + Handhelds."
+  },
+  {
+    section: "Details",
+    q: "How much is the Family Combo?",
+    a: "$185.00",
+    context: "Good for 4. Includes 4 pop drinks."
+  },
+  {
+    section: "Details",
+    q: "How much is the Seafood Feast Catering Tray?",
+    a: "$429.00",
+    context: "Feeds 9–12. Over $635 value."
+  },
+  {
+    section: "Details",
+    q: "How much is the Party Boil Catering Tray?",
+    a: "$249.00",
+    context: "Feeds 8–10. Over $290 value."
+  },
+  {
+    section: "Details",
+    q: "How much is the Office Lunch Package?",
+    a: "$185.00",
+    context: "Feeds 10. Over $217 value."
+  },
+  {
+    section: "Details",
+    q: "What is the most expensive slider tray?",
+    a: "Lobster Slider Tray — $125 to $250",
+    context: "Premium event upsell."
+  },
+  {
+    section: "Details",
+    q: "What is the Build Your Own Boil Bucket?",
+    a: "Custom boil bucket — menu shows $0.01 placeholder. Ask manager for pricing.",
+    context: "Do not quote a price — always check with manager."
+  },
+  {
+    section: "Details",
+    q: "How many lobster tails in the Small Shell Shocker?",
+    a: "One 4oz lobster tail",
+    context: "$53.95"
+  },
+  {
+    section: "Details",
+    q: "How many lobster tails in the Large Shell Shocker?",
+    a: "Two 4oz lobster tails",
+    context: "$76.95"
+  },
+  {
+    section: "Details",
+    q: "How many snow crab clusters in the ½ LB Snow Crab Bucket?",
+    a: "1 cluster",
+    context: "$40.95"
+  },
+  {
+    section: "Details",
+    q: "How many snow crab clusters in the 1 LB Snow Crab Bucket?",
+    a: "2 clusters",
+    context: "$63.95"
+  },
+  {
+    section: "Details",
+    q: "What's in the Group Deal for Two?",
+    a: "Fried Calamari + boil with ½ lb shrimp + ½ lb mussels + 2 lobster tails + corn, potatoes, 2 rice + 2 pop drinks",
+    context: "$92.00"
+  },
+  {
+    section: "Details",
+    q: "What's in the Family Combo?",
+    a: "Seafood soup (4) OR salad (4) + Calamari & Shrimp Fries + 1 lb shrimp + 1 lb mussels + 1 lb crab + 2 lobster tails + corn, potatoes, 4 rice + 4 pop drinks",
+    context: "$185.00 — good for 4"
+  },
+
+  // ── SERVICE ─────────────────────────────────────────────────
+  {
+    section: "Service",
+    q: "What's the first thing to ask a guest ordering a boil bucket?",
+    a: "Which sauce — Cajun Butter, Lemon Pepper Butter, or House Mix Butter",
+    context: "Biggest service risk on the menu."
+  },
+  {
+    section: "Service",
+    q: "What sides does a guest get with a boil bucket?",
+    a: "Corn, potatoes, rice — fixed trio. They don't choose.",
+    context: "No substitutions."
+  },
+  {
+    section: "Service",
+    q: "What's the up-sell on the Royal Caesar Salad?",
+    a: "Add grilled shrimp for $6",
+    context: "Simple upsell to remember."
+  },
+  {
+    section: "Service",
+    q: "Which dish is HALAL?",
+    a: "Chicken Wings — menu explicitly states 'Halal breaded chicken wings'",
+    context: "Verify scope with manager after training (chicken tenders, loaded fries, kids, etc.)"
+  },
+  {
+    section: "Service",
+    q: "Which Fish and Chips detail matters for guest questions?",
+    a: "It's NON-BEER battered — safe for guests avoiding alcohol",
+    context: "Common question from religious/dietary guests."
+  },
+  {
+    section: "Service",
+    q: "What's the deal with the Tacos protein choices?",
+    a: "Shrimp (with guacamole), Fish (with spicy tartar), Chicken (with house sauce) — always confirm which protein before ringing in.",
+    context: "$16.95 for any of the three."
+  },
+  {
+    section: "Service",
+    q: "What's a good upsell with Fish and Chips?",
+    a: "Extra side of Spicy Homemade Tartar Sauce — $1.50",
+    context: "Cheap, easy, guests appreciate it."
+  },
+  {
+    section: "Service",
+    q: "Which buckets have seasonal availability?",
+    a: "Crawfish Bucket and Shrimp & Crawfish Bucket",
+    context: "Confirm availability with kitchen before recommending."
+  },
+  {
+    section: "Service",
+    q: "What is the '1 LB Mussel Boil Bucket COPY' issue?",
+    a: "Menu currently shows it as 'COPY' — ask manager if it should be renamed or removed.",
+    context: "Do not quote this name to guests until confirmed."
+  },
+  {
+    section: "Service",
+    q: "Which dessert has a spelling issue on the menu?",
+    a: "Molton Lava Cake — actual spelling is 'Molten'",
+    context: "$7.95. Flag to manager."
+  }
+];
+
+/* ═══════════════════════════════════════════════════════════
+   DRINKS QUIZ
+   ═══════════════════════════════════════════════════════════ */
+
+const DRINKS_QUIZ = [
+  {
+    section: "Mocktails",
+    q: "What's in the Strawberry Mocktail?",
+    a: "Strawberry — described as refreshing and a perfect pair with seafood",
+    context: "$5.95 — menu explicitly suggests this pairing."
+  },
+  {
+    section: "Mocktails",
+    q: "Which mocktail is described as pairing with seafood?",
+    a: "Strawberry Mocktail",
+    context: "Use this line when a guest orders a boil."
+  },
+  {
+    section: "Mocktails",
+    q: "What's in the Tropical Sunshine?",
+    a: "Mango & pineapple, sparkling lemon mocktail",
+    context: "$5.95 — sparkling."
+  },
+  {
+    section: "Mocktails",
+    q: "What's in the Blue Raspberry Lemonade?",
+    a: "Blue Raspberry, Lemon, and Cranberry",
+    context: "$5.95"
+  },
+  {
+    section: "Mocktails",
+    q: "Which mocktail is a slushie?",
+    a: "Pina Colada — sweet and fruity slushie",
+    context: "$5.95"
+  },
+  {
+    section: "Mocktails",
+    q: "How many LBSH Favourites mocktails are there?",
+    a: "5 — Apple Lemonade, Blue Raspberry Lemonade, Strawberry Mocktail, Tropical Sunshine, Pina Colada",
+    context: "All $5.95."
+  },
+  {
+    section: "Mocktails",
+    q: "How much are the LBSH Favourites mocktails?",
+    a: "$5.95 each",
+    context: "All 5 mocktails are the same price."
+  },
+
+  // ── COLD ────────────────────────────────────────────────────
+  {
+    section: "Cold",
+    q: "What sodas are on the drinks menu?",
+    a: "Coke · Coke Zero · Diet Coke · Sprite · Fresca · Ginger Ale",
+    context: "All fountain sodas are $2.50."
+  },
+  {
+    section: "Cold",
+    q: "How much are fountain sodas?",
+    a: "$2.50",
+    context: "Coke, Coke Zero, Diet Coke, Sprite, Fresca, Ginger Ale."
+  },
+  {
+    section: "Cold",
+    q: "What bottled juices are on the menu?",
+    a: "Apple Juice ($3.95) · Mango Juice ($3.95) · Orange Juice ($3.95)",
+    context: "All three are the same price."
+  },
+  {
+    section: "Cold",
+    q: "How much is a Water Bottle?",
+    a: "$1.95",
+    context: "Cheapest drink on the menu."
+  },
+  {
+    section: "Cold",
+    q: "How much is Sparkling Water?",
+    a: "$2.50",
+    context: "Offer with lime when possible."
+  },
+  {
+    section: "Cold",
+    q: "What's the cheapest drink on the menu?",
+    a: "Water Bottle — $1.95",
+    context: "Cold Drinks."
+  },
+  {
+    section: "Cold",
+    q: "What's the most expensive non-alcoholic drink?",
+    a: "Mocktails — $5.95 each",
+    context: "Corona 0% at $3.95 comes second."
+  },
+
+  // ── HOT ─────────────────────────────────────────────────────
+  {
+    section: "Hot",
+    q: "How much is Hot Tea?",
+    a: "$2.50",
+    context: "Hot Drinks."
+  },
+  {
+    section: "Hot",
+    q: "How much is Coffee?",
+    a: "$2.50",
+    context: "Hot Drinks. Good end-of-meal drink."
+  },
+
+  // ── NON-ALCOHOLIC BEER ──────────────────────────────────────
+  {
+    section: "Non-Alcoholic Beer",
+    q: "What is the only non-alcoholic beer on the menu?",
+    a: "Corona 0%",
+    context: "$3.95"
+  },
+  {
+    section: "Non-Alcoholic Beer",
+    q: "How much is Corona 0%?",
+    a: "$3.95",
+    context: "Only non-alcoholic beer option."
+  },
+
+  // ── PAIRINGS ────────────────────────────────────────────────
+  {
+    section: "Pairings",
+    q: "What drink does the menu suggest pairing with seafood?",
+    a: "Strawberry Mocktail",
+    context: "Direct quote from the menu — use it."
+  },
+  {
+    section: "Pairings",
+    q: "What drink pairs well with fried items?",
+    a: "Sparkling water or a fountain soda cuts through the fry oil",
+    context: "Free upsell tip — offer a soda or sparkling with any basket."
+  },
+  {
+    section: "Pairings",
+    q: "What's a good non-alcoholic drink for a guest who wants a beer with dinner?",
+    a: "Corona 0% — $3.95",
+    context: "Only NA beer option."
+  }
+];
+
+/* ═══════════════════════════════════════════════════════════
+   CATERING QUIZ
+   ═══════════════════════════════════════════════════════════ */
+
+const CATERING_QUIZ = [
+  // ── FEEDS HOW MANY ──────────────────────────────────────────
+  {
+    section: "Feeds",
+    q: "How many people does the Caesar Salad catering tray serve?",
+    a: "4–6 people",
+    context: "$25.00"
+  },
+  {
+    section: "Feeds",
+    q: "How many people does the Party Starters tray serve?",
+    a: "6–8 people",
+    context: "$95.00 — over $120 value"
+  },
+  {
+    section: "Feeds",
+    q: "How many people does the Party Boil tray serve?",
+    a: "8–10 people",
+    context: "$249.00 — over $290 value"
+  },
+  {
+    section: "Feeds",
+    q: "How many people does the Seafood Feast tray serve?",
+    a: "9–12 people",
+    context: "$429.00 — over $635 value. Biggest package."
+  },
+  {
+    section: "Feeds",
+    q: "How many people does the Office Lunch Package feed?",
+    a: "10 people",
+    context: "$185.00 — over $217 value"
+  },
+
+  // ── WHAT'S INCLUDED ─────────────────────────────────────────
+  {
+    section: "Contents",
+    q: "What's in the Party Boil Catering Tray?",
+    a: "5 lb shrimp + 2 lb mussels + corn + potatoes in signature butter sauce + large rice tray + side butter sauce + lemon wedges + 10 bibs + 10 gloves",
+    context: "$249.00 — feeds 8–10"
+  },
+  {
+    section: "Contents",
+    q: "What's in the Seafood Feast Catering Tray?",
+    a: "3 lb shrimp + 2 lb mussels + 5 lobster tails (halved) + 5 crab clusters (2.5 lb) + corn + potatoes in signature butter sauce + rice tray + side butter sauce + lemon + 12 bibs + 12 gloves",
+    context: "$429.00 — feeds 9–12"
+  },
+  {
+    section: "Contents",
+    q: "What's in the Office Lunch Package?",
+    a: "10 fish OR shrimp rolls (cut in half) + large fries tray + large caesar salad + 10 drinks",
+    context: "$185.00 — feeds 10. Guest picks fish OR shrimp."
+  },
+  {
+    section: "Contents",
+    q: "What's in the Party Starters Tray?",
+    a: "Fried calamari tray + fried shrimp tray (with dynamite sauce) + crispy seasoned fries tray",
+    context: "$95.00 — feeds 6–8"
+  },
+  {
+    section: "Contents",
+    q: "What's in the Lobster Slider Tray?",
+    a: "Lobster with butter, topped with green onion, on slider buns",
+    context: "$125–$250 depending on size"
+  },
+  {
+    section: "Contents",
+    q: "What's in the Chicken Slider Tray?",
+    a: "Fried chicken with red cabbage & house sauce",
+    context: "$50–$100"
+  },
+  {
+    section: "Contents",
+    q: "What's in the Fish Slider Tray?",
+    a: "Battered fish, green onion, red cabbage with house sauce and spicy tartar",
+    context: "$45–$90"
+  },
+  {
+    section: "Contents",
+    q: "What's in the Shrimp Slider Tray?",
+    a: "Fried shrimp, lettuce, green onion, jalapeño",
+    context: "$45–$90"
+  },
+  {
+    section: "Contents",
+    q: "What's in the Sausage Slider Tray?",
+    a: "Beef sausage on a brioche bun with house sauce and red cabbage",
+    context: "$45–$90 — confirm Halal if guest asks"
+  },
+
+  // ── PRICING ─────────────────────────────────────────────────
+  {
+    section: "Pricing",
+    q: "How much is the Caesar Salad catering tray?",
+    a: "$25.00",
+    context: "Feeds 4–6"
+  },
+  {
+    section: "Pricing",
+    q: "How much is the Party Starters tray?",
+    a: "$95.00",
+    context: "Feeds 6–8. Over $120 value."
+  },
+  {
+    section: "Pricing",
+    q: "How much is the Party Boil tray?",
+    a: "$249.00",
+    context: "Feeds 8–10. Over $290 value."
+  },
+  {
+    section: "Pricing",
+    q: "How much is the Seafood Feast tray?",
+    a: "$429.00",
+    context: "Feeds 9–12. Over $635 value."
+  },
+  {
+    section: "Pricing",
+    q: "How much is the Office Lunch Package?",
+    a: "$185.00",
+    context: "Feeds 10. Over $217 value."
+  },
+  {
+    section: "Pricing",
+    q: "What's the price range for slider trays?",
+    a: "Chicken $50–$100 · Fish/Shrimp/Sausage $45–$90 · Lobster $125–$250",
+    context: "Chicken and Lobster are the outliers — small/large tiers."
+  },
+  {
+    section: "Pricing",
+    q: "Which slider tray is the most expensive?",
+    a: "Lobster Slider Tray — $125 to $250",
+    context: "Premium event upsell."
+  },
+  {
+    section: "Pricing",
+    q: "Which slider tray is the cheapest?",
+    a: "Fish, Shrimp, or Sausage Slider Trays — starting at $45",
+    context: "Small tray size."
+  },
+
+  // ── SERVICE ─────────────────────────────────────────────────
+  {
+    section: "Service",
+    q: "What must you ask a guest ordering the Office Lunch Package?",
+    a: "Fish Rolls OR Shrimp Rolls — they pick one",
+    context: "Menu doesn't default — always ask."
+  },
+  {
+    section: "Service",
+    q: "Which catering trays include bibs and gloves?",
+    a: "Party Boil (10 bibs + 10 gloves) and Seafood Feast (12 bibs + 12 gloves)",
+    context: "Boil-style trays include service gear."
+  },
+  {
+    section: "Service",
+    q: "What are the advertised 'value' figures on the trays?",
+    a: "Party Starters — over $120 · Office Lunch — over $217 · Party Boil — over $290 · Seafood Feast — over $635",
+    context: "Use these to justify the price to event organizers."
+  },
+  {
+    section: "Service",
+    q: "Which catering trays have tiered pricing (small/large)?",
+    a: "All 5 Slider Trays — Chicken $50–$100, Fish/Shrimp/Sausage $45–$90, Lobster $125–$250",
+    context: "Fixed-price trays: Caesar, Party Starters, Office Lunch, Party Boil, Seafood Feast."
+  }
+];
+
+/* ═══════════════════════════════════════════════════════════
+   DIAL LABELS (kept for future use if you add them)
+   ═══════════════════════════════════════════════════════════ */
+const DIAL_LABELS = {};
+
+/* ═══════════════════════════════════════════════════════════
+   SCREEN NAVIGATION
+   ═══════════════════════════════════════════════════════════ */
+const SCREENS = ['home','menu-screen','drinks-screen','catering-screen','foodq-screen','drinksq-screen','cateringq-screen'];
+const NAV_MAP = {
+  'home':'nav-home',
+  'menu-screen':'nav-menu',
+  'drinks-screen':'nav-drinks',
+  'catering-screen':'nav-catering',
+  'foodq-screen':'nav-foodq',
+  'drinksq-screen':'nav-drinksq',
+  'cateringq-screen':'nav-cateringq'
+};
+
+function showScreen(id) {
+  document.querySelectorAll('.deck-controls').forEach(el => {
+    el.style.display = id === 'home' ? 'none' : '';
+  });
+  SCREENS.forEach(s => {
+    const el = document.getElementById(s);
+    if (el) el.style.display = (s === id) ? 'block' : 'none';
+  });
+  Object.entries(NAV_MAP).forEach(([screen, btn]) => {
+    const el = document.getElementById(btn);
+    if (el) el.classList.toggle('active', screen === id);
+  });
+  try { document.documentElement.scrollTop = 0; } catch(e){}
+  try { document.body.scrollTop = 0; } catch(e){}
+}
+
+/* ═══════════════════════════════════════════════════════════
+   DECK STATE
+   ═══════════════════════════════════════════════════════════ */
+const states = {};
+
+function initDeck(id, items, sections) {
+  states[id] = {
+    items,
+    order: items.map((_,i)=>i),
+    pos: 0,
+    flipped: false,
+    section: 'All',
+    sections
+  };
+}
+
+function filtered(id) {
+  const s = states[id];
+  return s.order.filter(i => {
+    const item = s.items[i];
+    if (s.section === 'All') return true;
+    const cats = item.categories || (item.category ? [item.category] : []) || (item.section ? [item.section] : []);
+    return cats.includes(s.section);
+  });
+}
+
+/* ═══════════════════════════════════════════════════════════
+   FLIP / NAV
+   ═══════════════════════════════════════════════════════════ */
+function flip(id) {
+  states[id].flipped = !states[id].flipped;
+  const cardInner = document.getElementById(id+'-card');
+  cardInner.classList.toggle('flipped', states[id].flipped);
+  const btn = document.getElementById(id+'-flip');
+  if (btn) btn.textContent = states[id].flipped ? 'Hide' : 'Flip';
+  srShowButtons(id, states[id].flipped);
+  setTimeout(function() {
+    const front = document.getElementById(id+'-front');
+    const back  = document.getElementById(id+'-back');
+    if (!front || !back || !cardInner) return;
+    if (states[id].flipped) {
+      cardInner.style.height = back.scrollHeight + 'px';
+      setTimeout(function() {
+        const srRow = document.getElementById(id+'-sr-row');
+        if (srRow) {
+          const rect = srRow.getBoundingClientRect();
+          const scrollTarget = window.scrollY + rect.bottom - window.innerHeight + 80;
+          window.scrollTo({ top: scrollTarget, behavior: 'smooth' });
+        }
+      }, 60);
+    } else {
+      cardInner.style.height = front.scrollHeight + 'px';
+      cardInner.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }, 520);
+}
+
+function next(id) {
+  const l = filtered(id);
+  states[id].flipped = false;
+  states[id].pos = (states[id].pos + 1) % l.length;
+  const cardInner = document.getElementById(id+'-card');
+  cardInner.classList.remove('flipped');
+  cardInner.style.height = '';
+  const btn = document.getElementById(id+'-flip');
+  if (btn) btn.textContent = 'Flip';
+  srShowButtons(id, false);
+  render(id);
+}
+
+function prev(id) {
+  const l = filtered(id);
+  states[id].flipped = false;
+  states[id].pos = (states[id].pos - 1 + l.length) % l.length;
+  const cardInner = document.getElementById(id+'-card');
+  cardInner.classList.remove('flipped');
+  cardInner.style.height = '';
+  const btn = document.getElementById(id+'-flip');
+  if (btn) btn.textContent = 'Flip';
+  srShowButtons(id, false);
+  render(id);
+}
+
+function shuffle(id) {
+  const a = [...states[id].order];
+  for (let i = a.length-1; i > 0; i--) {
+    const j = Math.floor(Math.random()*(i+1));
+    [a[i],a[j]] = [a[j],a[i]];
+  }
+  states[id].order = a; states[id].pos = 0; states[id].flipped = false;
+  document.getElementById(id+'-card').classList.remove('flipped');
+  const btn = document.getElementById(id+'-flip');
+  if (btn) btn.textContent = 'Flip';
+  render(id);
+}
+
+function reset(id) {
+  states[id].order = states[id].items.map((_,i)=>i);
+  states[id].pos = 0; states[id].flipped = false; states[id].section = 'All';
+  document.getElementById(id+'-card').classList.remove('flipped');
+  const btn = document.getElementById(id+'-flip');
+  if (btn) btn.textContent = 'Flip';
+  buildCats(id); render(id);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   CATEGORY PILLS
+   ═══════════════════════════════════════════════════════════ */
+function buildCats(id) {
+  const s = states[id];
+  const el = document.getElementById(id+'-cats');
+  if (!el) return;
+  el.innerHTML = '';
+  ['All', ...s.sections].forEach(c => {
+    const btn = document.createElement('button');
+    btn.className = 'cat-btn' + (s.section === c ? ' active' : '');
+    btn.textContent = c;
+    btn.onclick = () => {
+      s.section = c; s.pos = 0; s.flipped = false;
+      document.getElementById(id+'-card').classList.remove('flipped');
+      const fb = document.getElementById(id+'-flip');
+      if (fb) fb.textContent = 'Flip';
+      buildCats(id); render(id);
+    };
+    el.appendChild(btn);
+  });
+}
+
+/* ═══════════════════════════════════════════════════════════
+   RENDER ROUTER
+   ═══════════════════════════════════════════════════════════ */
+function render(id) {
+  if (id === 'menu') renderMenu();
+  else if (id === 'drinks') renderDrinks();
+  else if (id === 'catering') renderCatering();
+  else if (id === 'foodq') renderQuiz('foodq', FOOD_QUIZ);
+  else if (id === 'drinksq') renderQuiz('drinksq', DRINKS_QUIZ);
+  else if (id === 'cateringq') renderQuiz('cateringq', CATERING_QUIZ);
+  srInjectBadge(id);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   RENDER — MENU CARDS
+   ═══════════════════════════════════════════════════════════ */
+function renderMenu() {
+  const id = 'menu'; const s = states[id];
+  const list = filtered(id);
+  if (!list.length) return;
+  if (s.pos >= list.length) s.pos = 0;
+  const d = DISHES[list[s.pos]];
+  document.getElementById('menu-prog').textContent = (s.pos+1) + ' / ' + list.length;
+
+  const priceDisplay = d.price === null
+    ? '<div class="front-price" style="font-size:16px">Ask for pricing</div>'
+    : `<div class="front-price">$${d.price.toFixed(2)}</div>`;
+
+  const refTag = d.reference ? '<div class="front-cat" style="color:#e05555">REFERENCE CARD</div>' : '';
+
+  document.getElementById('menu-front').innerHTML = `
+    ${refTag}
+    <div class="front-cat">${(d.categories||[]).join(' · ')}</div>
+    <div class="front-name">${d.name}${d.halal ? '<span class="halal-chip">HALAL</span>' : ''}</div>
+    ${priceDisplay}
+    <div class="tap-hint">Tap to reveal</div>`;
+
+  const pitch = (d.pitch||[]).map((p,i) => `
+    <div class="pitch-item">
+      <span class="pitch-num">0${i+1}</span>
+      <span class="pitch-word">${p}</span>
+    </div>`).join('');
+
+  const chips = (arr) => arr && arr.length
+    ? `<div class="choice-chips">${arr.map(x => `<span class="choice-chip">${x}</span>`).join('')}</div>`
+    : '';
+
+  document.getElementById('menu-back').innerHTML = `
+    <div class="section-tag">Say these three</div>
+    <div class="back-name">${d.name}${d.halal ? '<span class="halal-chip">HALAL</span>' : ''}</div>
+    <div class="pitch-list">${pitch}</div>
+    <div class="back-divider"></div>
+    <div class="info-block">
+      <div class="info-label">Full description</div>
+      <div class="info-text italic">${d.full || '—'}</div>
+    </div>
+    ${d.sauce_choices && d.sauce_choices.length ? `<div class="info-block"><div class="info-label">Sauce choices</div>${chips(d.sauce_choices)}</div>` : ''}
+    ${d.protein_choices && d.protein_choices.length ? `<div class="info-block"><div class="info-label">Protein choices</div>${chips(d.protein_choices)}</div>` : ''}
+    ${d.sides_included && d.sides_included.length ? `<div class="info-block"><div class="info-label">Sides included</div>${chips(d.sides_included)}</div>` : ''}
+    ${d.note ? `<div class="note-line">※ ${d.note}</div>` : ''}`;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   RENDER — DRINKS CARDS
+   ═══════════════════════════════════════════════════════════ */
+function renderDrinks() {
+  const id = 'drinks'; const s = states[id];
+  const list = filtered(id);
+  if (!list.length) return;
+  if (s.pos >= list.length) s.pos = 0;
+  const d = DRINKS[list[s.pos]];
+  document.getElementById('drinks-prog').textContent = (s.pos+1) + ' / ' + list.length;
+
+  const priceDisplay = d.price === null
+    ? '<div class="front-price" style="font-size:16px">Ask for pricing</div>'
+    : `<div class="front-price">$${d.price.toFixed(2)}</div>`;
+
+  document.getElementById('drinks-front').innerHTML = `
+    <div class="front-cat">${d.category}</div>
+    <div class="front-name">${d.name}</div>
+    ${priceDisplay}
+    <div class="tap-hint">Tap to reveal</div>`;
+
+  const pitch = (d.pitch||[]).map((p,i) => `
+    <div class="pitch-item">
+      <span class="pitch-num">0${i+1}</span>
+      <span class="pitch-word">${p}</span>
+    </div>`).join('');
+
+  document.getElementById('drinks-back').innerHTML = `
+    <div class="section-tag">Say these three</div>
+    <div class="back-name">${d.name}</div>
+    <div class="pitch-list">${pitch}</div>
+    <div class="back-divider"></div>
+    <div class="info-block">
+      <div class="info-label">Full description</div>
+      <div class="info-text italic">${d.full || '—'}</div>
+    </div>
+    ${d.note ? `<div class="note-line">※ ${d.note}</div>` : ''}`;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   RENDER — CATERING CARDS
+   ═══════════════════════════════════════════════════════════ */
+function renderCatering() {
+  const id = 'catering'; const s = states[id];
+  const list = filtered(id);
+  if (!list.length) return;
+  if (s.pos >= list.length) s.pos = 0;
+  const d = CATERING[list[s.pos]];
+  document.getElementById('catering-prog').textContent = (s.pos+1) + ' / ' + list.length;
+
+  const priceDisplay = d.price_range
+    ? `<div class="front-price" style="font-size:20px">${d.price_range}</div>`
+    : d.price === null
+      ? '<div class="front-price" style="font-size:16px">Ask for pricing</div>'
+      : `<div class="front-price">$${d.price.toFixed(2)}</div>`;
+
+  document.getElementById('catering-front').innerHTML = `
+    <div class="front-cat">${d.category}</div>
+    <div class="front-name">${d.name}</div>
+    ${priceDisplay}
+    <div class="front-cat" style="margin-top:10px">Feeds ${d.feeds || '—'}</div>
+    <div class="tap-hint">Tap to reveal</div>`;
+
+  const pitch = (d.pitch||[]).map((p,i) => `
+    <div class="pitch-item">
+      <span class="pitch-num">0${i+1}</span>
+      <span class="pitch-word">${p}</span>
+    </div>`).join('');
+
+  const includes = (d.includes||[]).map(x => `<span class="choice-chip">${x}</span>`).join('');
+
+  document.getElementById('catering-back').innerHTML = `
+    <div class="section-tag">Say these three</div>
+    <div class="back-name">${d.name}</div>
+    <div class="pitch-list">${pitch}</div>
+    <div class="back-divider"></div>
+    <div class="info-block">
+      <div class="info-label">Feeds</div>
+      <div class="info-text">${d.feeds || '—'}</div>
+    </div>
+    <div class="info-block">
+      <div class="info-label">Includes</div>
+      <div class="choice-chips">${includes}</div>
+    </div>
+    <div class="info-block">
+      <div class="info-label">Full description</div>
+      <div class="info-text italic">${d.full || '—'}</div>
+    </div>
+    ${d.note ? `<div class="note-line">※ ${d.note}</div>` : ''}`;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   RENDER — QUIZ CARDS
+   ═══════════════════════════════════════════════════════════ */
+function renderQuiz(id, data) {
+  const s = states[id];
+  const list = filtered(id);
+  if (!list.length) return;
+  if (s.pos >= list.length) s.pos = 0;
+  const c = data[list[s.pos]];
+  document.getElementById(id+'-prog').textContent = (s.pos+1) + ' / ' + list.length;
+
+  document.getElementById(id+'-front').innerHTML = `
+    <div class="front-cat">${c.section}</div>
+    <div class="quiz-q">${c.q}</div>
+    ${c.context ? `<div class="quiz-context">${c.context}</div>` : ''}
+    <div class="tap-hint" style="margin-top:auto">Tap to reveal</div>`;
+
+  document.getElementById(id+'-back').innerHTML = `
+    <div class="section-tag">Answer</div>
+    <div class="quiz-a">${c.a}</div>
+    ${c.context ? `<div class="quiz-context-back">${c.context}</div>` : ''}`;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   SPACED REPETITION
+   ═══════════════════════════════════════════════════════════ */
+const srWeights = {};
+const srSkipNext = {};
+const srQueue = {};
+
+function srInit(id, count) {
+  srWeights[id] = new Array(count).fill(1);
+  srSkipNext[id] = new Set();
+  srQueue[id] = Array.from({length: count}, (_, i) => i);
+}
+
+function srMark(id, result) {
+  const s = states[id];
+  const list = filtered(id);
+  if (!list.length) return;
+  const itemIdx = list[s.pos];
+  const q = srQueue[id];
+
+  if (result === 'wrong') {
+    srWeights[id][itemIdx] = 3;
+    srSkipNext[id].delete(itemIdx);
+    const insertAt = Math.min(2, q.length);
+    q.splice(insertAt, 0, itemIdx);
+  } else if (result === 'unsure') {
+    srWeights[id][itemIdx] = 2;
+    srSkipNext[id].delete(itemIdx);
+    const gap = Math.floor(Math.random() * 11) + 5;
+    const insertAt = Math.min(gap, q.length);
+    q.splice(insertAt, 0, itemIdx);
+  } else {
+    srSkipNext[id].add(itemIdx);
+    srWeights[id][itemIdx] = 1;
+  }
+
+  srUpdateProgress(id);
+  srNext(id);
+}
+
+function srNext(id) {
+  const s = states[id];
+  const cardInner = document.getElementById(id+'-card');
+  const btn = document.getElementById(id+'-flip');
+  const q = srQueue[id];
+
+  srShowButtons(id, false);
+  s.flipped = false;
+  cardInner.classList.remove('flipped');
+  cardInner.style.height = '';
+  if (btn) btn.textContent = 'Flip';
+
+  setTimeout(function() {
+    let pickedItemIdx;
+
+    while (q.length > 0) {
+      const candidate = q.shift();
+      if (!srSkipNext[id] || !srSkipNext[id].has(candidate)) {
+        const item = s.items[candidate];
+        const cats = item.categories || (item.category ? [item.category] : []) || (item.section ? [item.section] : []);
+        if (s.section === 'All' || cats.includes(s.section)) {
+          pickedItemIdx = candidate;
+          break;
+        }
+      }
+    }
+
+    if (pickedItemIdx === undefined) {
+      const regularList = filtered(id);
+      if (!regularList.length) return;
+      const refill = [...regularList].sort(() => Math.random() - 0.5);
+      srQueue[id].push(...refill);
+      pickedItemIdx = srQueue[id].shift();
+      if (pickedItemIdx === undefined) pickedItemIdx = regularList[0];
+    }
+
+    const regularList = filtered(id);
+    const posInRegular = regularList.indexOf(pickedItemIdx);
+    s.pos = posInRegular >= 0 ? posInRegular : 0;
+    render(id);
+  }, 520);
+}
+
+function srShowButtons(id, show) {
+  ['wrong','unsure','right'].forEach(k => {
+    const b = document.getElementById(id+'-sr-'+k);
+    if (b) b.style.display = show ? 'block' : 'none';
+  });
+}
+
+function srUpdateProgress(id) {
+  const weights = srWeights[id];
+  if (!weights) return;
+  const total = weights.length;
+  const mastered = [...srSkipNext[id]].length;
+  const pct = total > 0 ? Math.round(mastered / total * 100) : 0;
+  const bar = document.getElementById(id+'-sr-bar');
+  const stats = document.getElementById(id+'-sr-stats');
+  if (bar) bar.style.width = pct + '%';
+  if (stats && total > 0) {
+    const wrong = weights.filter(w => w === 3).length;
+    const unsure = weights.filter(w => w === 2).length;
+    stats.innerHTML =
+      (mastered ? `<span style="color:#27ae60">✓ ${mastered}</span> &nbsp;` : '') +
+      (unsure   ? `<span style="color:#e67e22">~ ${unsure}</span> &nbsp;` : '') +
+      (wrong    ? `<span style="color:#c0392b">✗ ${wrong}</span> &nbsp;` : '') +
+      `<span style="opacity:0.5">${total} cards</span>`;
+  }
+}
+
+function srGetBadge(id, itemIdx) {
+  if (!srWeights[id]) return '';
+  if (srSkipNext[id] && srSkipNext[id].has(itemIdx)) {
+    return '<span class="sr-badge right">✓ Mastered</span>';
+  }
+  const w = srWeights[id][itemIdx];
+  if (w === 3) return '<span class="sr-badge wrong">✗ Repeat</span>';
+  if (w === 2) return '<span class="sr-badge unsure">~ Unsure</span>';
+  return '';
+}
+
+function srInjectBadge(id) {
+  const s = states[id];
+  const list = filtered(id);
+  if (!list.length) return;
+  if (s.pos >= list.length) return;
+  const itemIdx = list[s.pos];
+  const badge = srGetBadge(id, itemIdx);
+  if (!badge) return;
+  const front = document.getElementById(id+'-front');
+  if (!front) return;
+  if (!front.querySelector('.sr-badge')) {
+    front.innerHTML += badge;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   INITIALIZATION
+   ═══════════════════════════════════════════════════════════ */
+initDeck('menu',     DISHES,        ['Most Popular','Starters','Handhelds','Baskets','Pasta','Boil Buckets','Group Orders','Sides','Kids','Desserts']);
+initDeck('drinks',   DRINKS,        ['Mocktails','Cold Drinks','Hot Drinks','Non-Alcoholic Beer']);
+initDeck('catering', CATERING,      ['Salad Trays','Slider Trays','Packages','Party Trays','Feast Trays']);
+initDeck('foodq',    FOOD_QUIZ,     ['Sauces','Sides','Ingredients','Pitch','Details','Service']);
+initDeck('drinksq',  DRINKS_QUIZ,   ['Mocktails','Cold','Hot','Non-Alcoholic Beer','Pairings']);
+initDeck('cateringq',CATERING_QUIZ, ['Feeds','Contents','Pricing','Service']);
+
+srInit('menu',      DISHES.length);
+srInit('drinks',    DRINKS.length);
+srInit('catering',  CATERING.length);
+srInit('foodq',     FOOD_QUIZ.length);
+srInit('drinksq',   DRINKS_QUIZ.length);
+srInit('cateringq', CATERING_QUIZ.length);
+
+renderMenu();
+renderDrinks();
+renderCatering();
+renderQuiz('foodq', FOOD_QUIZ);
+renderQuiz('drinksq', DRINKS_QUIZ);
+renderQuiz('cateringq', CATERING_QUIZ);
+
+buildCats('menu');
+buildCats('drinks');
+buildCats('catering');
+buildCats('foodq');
+buildCats('drinksq');
+buildCats('cateringq');
+
+srUpdateProgress('menu');
+srUpdateProgress('drinks');
+srUpdateProgress('catering');
+srUpdateProgress('foodq');
+srUpdateProgress('drinksq');
+srUpdateProgress('cateringq');
+
+/* Dynamic home-screen counts */
+document.getElementById('count-menu').textContent      = DISHES.length + ' dishes';
+document.getElementById('count-drinks').textContent    = DRINKS.length + ' drinks';
+document.getElementById('count-catering').textContent  = CATERING.length + ' trays';
+document.getElementById('count-foodq').textContent     = FOOD_QUIZ.length + ' cards';
+document.getElementById('count-drinksq').textContent   = DRINKS_QUIZ.length + ' cards';
+document.getElementById('count-cateringq').textContent = CATERING_QUIZ.length + ' cards';
+
+/* ═══════════════════════════════════════════════════════════
+   KEYBOARD SHORTCUTS
+   ═══════════════════════════════════════════════════════════ */
+document.addEventListener('keydown', function(e) {
+  if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+
+  const deckMap = {
+    'menu-screen':      'menu',
+    'drinks-screen':    'drinks',
+    'catering-screen':  'catering',
+    'foodq-screen':     'foodq',
+    'drinksq-screen':   'drinksq',
+    'cateringq-screen': 'cateringq'
+  };
+
+  let activeDeck = null;
+  for (const [screenId, deckId] of Object.entries(deckMap)) {
+    const el = document.getElementById(screenId);
+    if (el && el.style.display === 'block') { activeDeck = deckId; break; }
+  }
+  if (!activeDeck) return;
+
+  if (e.code === 'Space') {
+    e.preventDefault();
+    const flipBtn = document.getElementById(activeDeck + '-flip');
+    if (flipBtn) flipBtn.click();
+    return;
+  }
+
+  if (e.code === 'ArrowLeft') {
+    e.preventDefault();
+    prev(activeDeck);
+    return;
+  }
+
+  if (e.code === 'ArrowRight') {
+    e.preventDefault();
+    next(activeDeck);
+    return;
+  }
+
+  const wrongBtn = document.getElementById(activeDeck + '-sr-wrong');
+  const srVisible = wrongBtn && wrongBtn.style.display === 'block';
+
+  if (srVisible) {
+    if (e.key === 'a' || e.key === 'A') {
+      document.getElementById(activeDeck + '-sr-wrong').click();
+    } else if (e.key === 's' || e.key === 'S') {
+      document.getElementById(activeDeck + '-sr-unsure').click();
+    } else if (e.key === 'd' || e.key === 'D') {
+      document.getElementById(activeDeck + '-sr-right').click();
+    }
+  }
+});
+
+</script>
+
+</body>
+</html>
+
+
+
